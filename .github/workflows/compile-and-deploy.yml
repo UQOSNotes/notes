@@ -1,0 +1,78 @@
+# .github/workflows/compile-and-deploy.yml
+name: Compile and Deploy Notes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.typ'
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # needed to diff against previous commit
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v3
+
+      - name: Detect changed courses
+        id: changed
+        run: |
+          # Find all main.typ files in changed directories
+          git diff --name-only HEAD~1 HEAD | \
+            grep '\.typ$' | \
+            sed 's|/[^/]*$||' | \
+            sort -u > changed_dirs.txt
+          
+          # Walk up to find the course root (contains main.typ)
+          while IFS= read -r dir; do
+            while [ "$dir" != "." ]; do
+              if [ -f "$dir/main.typ" ]; then
+                echo "$dir"
+                break
+              fi
+              dir=$(dirname "$dir")
+            done
+          done < changed_dirs.txt | sort -u > course_roots.txt
+          
+          cat course_roots.txt
+          echo "courses=$(cat course_roots.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Compile changed courses
+        run: |
+          while IFS= read -r course; do
+            echo "Compiling $course"
+            typst compile "$course/main.typ" "$course/notes.pdf"
+          done < course_roots.txt
+
+      - name: Push PDFs to site repo
+        env:
+          SITE_REPO_TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
+        run: |
+          git clone https://x-access-token:${SITE_REPO_TOKEN}@github.com/UQOSNotes/site.git site-repo
+          
+          while IFS= read -r course; do
+            dest="site-repo/public/notes/$course"
+            mkdir -p "$dest"
+            cp "$course/notes.pdf" "$dest/notes.pdf"
+          done < course_roots.txt
+          
+          cd site-repo
+          git config user.name "UQOSNotes Bot"
+          git config user.email "bot@uqosnotes.github.io"
+          git add public/notes/
+          git diff --staged --quiet || git commit -m "chore: update compiled notes [skip ci]"
+          git push
+
+      - name: Trigger site rebuild
+        env:
+          SITE_REPO_TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${SITE_REPO_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/UQOSNotes/site/actions/workflows/build.yml/dispatches \
+            -d '{"ref":"main"}'
