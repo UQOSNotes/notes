@@ -18,6 +18,12 @@ jobs:
       - name: Install Typst
         uses: typst-community/setup-typst@v3
 
+      - name: Install uqosnotes template package
+        run: |
+          mkdir -p ~/.local/share/typst/packages/local/uqosnotes/0.1.0
+          git clone --depth 1 https://github.com/UQOSNotes/template.git /tmp/uqosnotes
+          cp -r /tmp/uqosnotes/. ~/.local/share/typst/packages/local/uqosnotes/0.1.0/
+
       - name: Detect changed courses
         id: changed
         run: |
