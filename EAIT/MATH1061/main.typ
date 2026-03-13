@@ -3,7 +3,7 @@
 #show: notes.with(
   course: "MATH1061",
   title: "Discrete Mathematics",
-  year: "Semester 1, 2026",
+  year: "2026",
   authors: (),
 )
 
