@@ -1,4 +1,4 @@
-#import "@local/uqosnotes:0.1.0": *
+#import "/lib.typ": *
 
 = Mathematical Induction
 
