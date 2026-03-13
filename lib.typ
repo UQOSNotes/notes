@@ -78,11 +78,14 @@
 ///   authors: ("Alice Smith",),
 /// )
 /// ```
+#let _in_body = state("in-body", false)
+
 #let notes(
   course: "",
   title: "Notes",
   year: "",
   authors: (),
+  preface: none,
   body,
 ) = {
   let authors = if type(authors) == str { (authors,) } else { authors }
@@ -100,13 +103,26 @@
     paper: "a4",
     margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm),
     header: context {
-      set text(size: 9pt, fill: luma(130))
-      let parts = (course, year).filter(s => s != "")
-      parts.join(" - ")
-      h(1fr)
-      counter(page).display()
+      if _in_body.at(here()) {
+        set text(size: 9pt, fill: luma(130))
+        let h1s = query(heading.where(level: 1).before(here()))
+        let h2s = query(heading.where(level: 2).before(here()))
+        let chapter = if h1s.len() > 0 { h1s.last().body } else { none }
+        let section = if h2s.len() > 0 { h2s.last().body } else { none }
+        let rparts = (chapter, section).filter(x => x != none)
+        if course != "" { course }
+        h(1fr)
+        if rparts.len() > 0 { rparts.join([  ·  ]) }
+      }
     },
-    footer: [],
+    footer: context {
+      if _in_body.at(here()) {
+        set text(size: 9pt, fill: luma(130))
+        datetime.today().display("[day] [month repr:long] [year]")
+        h(1fr)
+        counter(page).display()
+      }
+    },
   )
 
   set text(size: 12pt, lang: "en", font: "New Computer Modern")
@@ -139,6 +155,14 @@
   pagebreak()
   outline(indent: 1em)
   pagebreak()
+
+  _in_body.update(true)
+
+  if preface != none {
+    heading(level: 1, numbering: none)[Preface]
+    preface
+    pagebreak()
+  }
 
   body
 }
