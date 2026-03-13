@@ -107,7 +107,7 @@
     header: context {
       if _in_body.at(here()) {
         set text(size: 9pt, fill: luma(130))
-        let h1s = query(heading.where(level: 1).before(here()))
+        let h1s = query(heading.where(level: 1).before(here())).filter(h => h.numbering != none)
         let h2s = query(heading.where(level: 2).before(here()))
         let chapter = if h1s.len() > 0 { h1s.last().body } else { none }
         let section = if h2s.len() > 0 { h2s.last().body } else { none }
