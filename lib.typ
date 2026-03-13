@@ -1,6 +1,8 @@
 // uqosnotes — multi-discipline academic notes template
 // https://github.com/UQOSNotes/template
 
+#import "@preview/cetz:0.4.2": canvas, draw
+
 // ── Colour palette ────────────────────────────────────────────────────────────
 
 #let _c = (
@@ -153,7 +155,15 @@
   v(1.5cm)
 
   pagebreak()
-  outline(indent: 1em)
+
+  {
+    show outline.entry.where(level: 1): it => {
+      v(0.8em, weak: true)
+      strong(it)
+    }
+    outline(depth: 2, indent: 1em)
+  }
+
   pagebreak()
 
   _in_body.update(true)
