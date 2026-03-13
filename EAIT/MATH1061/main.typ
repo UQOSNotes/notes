@@ -5,6 +5,11 @@
   title: "Discrete Mathematics",
   year: "2026",
   authors: (),
+  preface: [
+    #lorem(60)
+
+    #lorem(40)
+  ],
 )
 
 #include "chapters/01-sets.typ"

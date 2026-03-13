@@ -66,13 +66,3 @@ jobs:
           git add public/notes/
           git diff --staged --quiet || git commit -m "chore: update compiled notes [skip ci]"
           git push
-
-      - name: Trigger site rebuild
-        env:
-          SITE_REPO_TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${SITE_REPO_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/UQOSNotes/uqosnotes.github.io/actions/workflows/build.yml/dispatches \
-            -d '{"ref":"main"}'
