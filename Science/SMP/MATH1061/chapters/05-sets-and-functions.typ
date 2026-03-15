@@ -31,14 +31,14 @@ Sets are typically denoted by capital letters $A, B, C, \ldots$ and elements by 
 
 #definition[
   *Set-builder notation* defines a set by a property its elements must satisfy:
-  $ {x in D mid P(x)} $
+  $ {x in D | P(x)} $
   read as "the set of all $x$ in $D$ such that $P(x)$".
 ]
 
 #example[
-  - $\{x in ZZ mid x > 0\} = \{1, 2, 3, 4, \ldots\}$; positive integers
-  - $\{x in RR mid x^2 < 4\} = (-2, 2)$; real numbers between $-2$ and $2$
-  - $\{n in ZZ mid 2 divides n\} = \{\ldots, -4, -2, 0, 2, 4, \ldots\}$; even integers
+  - $\{x in ZZ | x > 0\} = \{1, 2, 3, 4, \ldots\}$; positive integers
+  - $\{x in RR | x^2 < 4\} = (-2, 2)$; real numbers between $-2$ and $2$
+  - $\{n in ZZ | 2 divides n\} = \{\ldots, -4, -2, 0, 2, 4, \ldots\}$; even integers
 ]
 
 === Common Sets of Numbers
@@ -52,9 +52,9 @@ The following sets of numbers are standard throughout mathematics:
   [*Symbol*], [*Name*], [*Description*],
   [$NN$], [Natural numbers], [$\{0, 1, 2, 3, \ldots\}$ (sometimes $\{1, 2, 3, \ldots\}$)],
   [$ZZ$], [Integers], [$\{\ldots, -2, -1, 0, 1, 2, \ldots\}$],
-  [$QQ$], [Rational numbers], [$\{a/b mid a, b in ZZ, b != 0\}$],
+  [$QQ$], [Rational numbers], [$\{a/b | a, b in ZZ, b != 0\}$],
   [$RR$], [Real numbers], [All points on the number line],
-  [$CC$], [Complex numbers], [$\{a + b i mid a, b in RR\}$],
+  [$CC$], [Complex numbers], [$\{a + b i | a, b in RR\}$],
 )
 
 Note the containment chain: $NN subset ZZ subset QQ subset RR subset CC$.
@@ -83,7 +83,7 @@ Note the containment chain: $NN subset ZZ subset QQ subset RR subset CC$.
 
 #definition[
   The *power set* of $A$, denoted $cal(P)(A)$, is the set of all subsets of $A$:
-  $ cal(P)(A) = {S mid S subset.eq A} $
+  $ cal(P)(A) = {S | S subset.eq A} $
 ]
 
 #example[
@@ -102,10 +102,10 @@ Note the containment chain: $NN subset ZZ subset QQ subset RR subset CC$.
 #definition[
   Let $A$ and $B$ be subsets of a *universal set* $U$.
 
-  - *Union:* $A union B = \{x in U mid x in A "or" x in B\}$
-  - *Intersection:* $A inter B = \{x in U mid x in A "and" x in B\}$
-  - *Difference:* $A without B = \{x in U mid x in A "and" x in.not B\}$
-  - *Complement:* $A^c = \{x in U mid x in.not A\}$
+  - *Union:* $A union B = \{x in U | x in A "or" x in B\}$
+  - *Intersection:* $A inter B = \{x in U | x in A "and" x in B\}$
+  - *Difference:* $A without B = \{x in U | x in A "and" x in.not B\}$
+  - *Complement:* $A^c = \{x in U | x in.not A\}$
 ]
 
 #example[
@@ -189,7 +189,7 @@ The laws of set algebra closely parallel the laws of logical equivalence from Ch
   The *ordered pair* $(a, b)$ is distinct from $(c, d)$ unless $a = c$ and $b = d$.
 
   The *Cartesian product* of sets $A$ and $B$ is:
-  $ A times B = \{(a, b) mid a in A "and" b in B\} $
+  $ A times B = \{(a, b) | a in A "and" b in B\} $
 ]
 
 #example[
@@ -213,7 +213,7 @@ The laws of set algebra closely parallel the laws of logical equivalence from Ch
   - $A$ is the *domain* of $f$
   - $B$ is the *codomain* of $f$
   - $f(x)$ is the *image* of $x$ under $f$
-  - The *range* (or *image*) of $f$ is $\{f(x) mid x in A\} subset.eq B$
+  - The *range* (or *image*) of $f$ is $\{f(x) | x in A\} subset.eq B$
 ]
 
 #important[
@@ -235,8 +235,8 @@ The laws of set algebra closely parallel the laws of logical equivalence from Ch
 #definition[
   Let $f: A -> B$.
 
-  - The *image of a set $S subset.eq A$* under $f$ is $f(S) = \{f(x) mid x in S\}$
-  - The *preimage* (or *inverse image*) of a set $T subset.eq B$ is $f^(-1)(T) = \{x in A mid f(x) in T\}$
+  - The *image of a set $S subset.eq A$* under $f$ is $f(S) = \{f(x) | x in S\}$
+  - The *preimage* (or *inverse image*) of a set $T subset.eq B$ is $f^(-1)(T) = \{x in A | f(x) in T\}$
 ]
 
 #example[

@@ -37,7 +37,7 @@ A relation between two sets formalises the notion of a connection or association
 ]
 
 #example[
-  The *less-than-or-equal* relation $<=$ on $ZZ$ is a relation on $ZZ$: $R = {(a, b) in ZZ times ZZ mid a <= b}$.
+  The *less-than-or-equal* relation $<=$ on $ZZ$ is a relation on $ZZ$: $R = {(a, b) in ZZ times ZZ | a <= b}$.
 ]
 
 === Relations as Sets of Ordered Pairs
@@ -46,9 +46,9 @@ Since a relation is simply a set of ordered pairs, all set operations apply. The
 
 #definition[
   Let $R$ be a relation from $A$ to $B$.
-  - The *domain* of $R$ is $"dom"(R) = {a in A mid exists b in B, (a, b) in R}$
-  - The *range* of $R$ is $"ran"(R) = {b in B mid exists a in A, (a, b) in R}$
-  - The *inverse* of $R$ is $R^(-1) = {(b, a) mid (a, b) in R} subset.eq B times A$
+  - The *domain* of $R$ is $"dom"(R) = {a in A | exists b in B, (a, b) in R}$
+  - The *range* of $R$ is $"ran"(R) = {b in B | exists a in A, (a, b) in R}$
+  - The *inverse* of $R$ is $R^(-1) = {(b, a) | (a, b) in R} subset.eq B times A$
 ]
 
 #example[
@@ -59,7 +59,7 @@ Since a relation is simply a set of ordered pairs, all set operations apply. The
 ]
 
 #remark[
-  Every function $f: A -> B$ is also a relation from $A$ to $B$; namely, $R_f = {(a, f(a)) mid a in A}$. Functions are therefore special relations in which every element of $A$ appears exactly once as a first component.
+  Every function $f: A -> B$ is also a relation from $A$ to $B$; namely, $R_f = {(a, f(a)) | a in A}$. Functions are therefore special relations in which every element of $A$ appears exactly once as a first component.
 ]
 
 === Directed Graphs of Relations
@@ -259,7 +259,7 @@ When a set is equipped with an equivalence relation, its elements are naturally 
 
 #definition[
   Let $R$ be an equivalence relation on a set $A$, and let $a in A$. The *equivalence class of $a$*, denoted $[a]$ (or $overline(a)$), is the set of all elements of $A$ that are related to $a$:
-  $ [a] = {x in A mid x R a} $
+  $ [a] = {x in A | x R a} $
 
   Any element $b in [a]$ is called a *representative* of the class.
 ]
