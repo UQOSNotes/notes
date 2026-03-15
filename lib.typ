@@ -39,7 +39,10 @@
     stroke: (left: 3pt + color),
     radius: (right: 2pt),
   )[
-    #block(spacing: 0pt)[#text(weight: "bold", fill: color)[#label]]
+    #block(
+      spacing: 0pt,
+      sticky: true,
+    )[#text(weight: "bold", fill: color)[#label]]
     #v(5pt)
     #body
   ]
