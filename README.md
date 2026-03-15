@@ -12,12 +12,19 @@ The notes in this repository are entirely written in [Typst](https://typst.app/d
 2. Clone this repository
 3. Compile any course using the `--root` flag so the template resolves correctly:
    ```sh
-   typst compile --root . EAIT/MATH1061/main.typ
+  typst compile --root . Science/SMP/MATH1061/main.typ
    ```
    The `--root .` flag sets the project root to the repo root, allowing `lib.typ` to be found via the `/lib.typ` import path used in each course.
 
+## Repository structure
+Notes are organised as:
+
+`<Faculty>/<School>/<Course>/main.typ`
+
+Example: `Science/SMP/MATH1061/main.typ`
+
 ## Adding a new course
-Create a folder under the relevant faculty, e.g. `EAIT/MATH1002/`, with a `main.typ` that begins:
+Create a folder under the relevant faculty and school, e.g. `Science/SMP/MATH1002/`, with a `main.typ` that begins:
 ```typ
 #import "/lib.typ": *
 
