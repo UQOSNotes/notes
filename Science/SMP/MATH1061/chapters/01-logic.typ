@@ -679,7 +679,7 @@ We can check whether an argument is valid or invalid using a truth table. An arg
   We verify this using a truth table:
 
   #table(
-    columns: 4,
+    columns: 5,
     align: center,
     [$p$], [$q$], [$p arrow.r q$ (Premise 1)], [$p$ (Premise 2)],
     [$q$ (Conclusion)], [T], [T], [T],
@@ -701,7 +701,7 @@ We can check whether an argument is valid or invalid using a truth table. An arg
   Show that the argument form $p arrow.r q, q therefore p$ is invalid.
 
   #table(
-    columns: 4,
+    columns: 5,
     align: center,
     [$p$], [$q$], [$p arrow.r q$ (Premise 1)], [$q$ (Premise 2)],
     [$p$ (Conclusion)], [T], [T], [T],
@@ -724,7 +724,7 @@ Rules of inference are argument forms that are well-known to be valid. We can us
 #table(
   columns: (auto, auto, auto),
   align: (left, left, left),
-  inset: 12pt,
+  inset: (x: 12pt, y: 16pt),
   [*Name*], [*Rule*], [*Description*],
 
   [Modus Ponens],
@@ -936,6 +936,7 @@ A *fallacy* is an error in reasoning that results in an invalid argument. Recogn
 #table(
   columns: (auto, auto, auto),
   align: (left, center, left),
+  inset: (x: 8pt, y: 12pt),
   [*Fallacy*], [*Invalid Form*], [*Confusion*],
 
   [Converse Error],
@@ -965,20 +966,190 @@ A *fallacy* is an error in reasoning that results in an invalid argument. Recogn
 
 == Quantified Statements
 
-#lorem(30)
+Propositional logic deals with statements that are unconditionally true or false. However, many mathematical assertions contain variables: "$x$ is even" has no truth value until $x$ is specified. *Predicate logic* extends propositional logic by introducing *predicates* — sentences whose truth depends on one or more variables — and *quantifiers*, which assert that a predicate holds for all or for some members of a given set. This section follows the treatment in Epp, *Discrete Mathematics with Applications*.
 
 === Universal and Existential Quantifiers
 
-#lorem(25)
+#definition[
+  A *predicate* (or *propositional function*) $P(x)$ is a sentence containing a variable $x$ that becomes a statement when a specific value is substituted for $x$. The set of all allowable values for $x$ is called the *domain* (or *universe of discourse*) of $x$.
+]
+
+#example[
+  Let $P(x)$ be the predicate "$x$ is divisible by 3" with domain $ZZ^+$ (the positive integers).
+  - $P(6)$: "6 is divisible by 3" — *true*
+  - $P(7)$: "7 is divisible by 3" — *false*
+
+  The predicate $P(x)$ itself has no truth value; only $P(a)$ for a specific $a in ZZ^+$ does.
+]
+
+#definition[
+  Let $P(x)$ be a predicate with domain $D$. The *universal quantification* of $P(x)$, written
+  $ forall x in D, P(x), $
+  is read "for all $x$ in $D$, $P(x)$." It is *true* when $P(x)$ holds for every $x in D$, and *false* when there is at least one element $x_0 in D$ for which $P(x_0)$ is false. Such a value $x_0$ is called a *counterexample* to the universal statement.
+
+  The symbol $forall$ is the *universal quantifier*.
+]
+
+#definition[
+  Let $P(x)$ be a predicate with domain $D$. The *existential quantification* of $P(x)$, written
+  $ exists x in D, P(x), $
+  is read "there exists $x$ in $D$ such that $P(x)$." It is *true* when $P(x)$ holds for at least one element $x in D$, and *false* when $P(x)$ is false for every $x in D$.
+
+  The symbol $exists$ is the *existential quantifier*.
+]
+
+#remark[
+  When the domain is clear from context, the restriction $in D$ is sometimes omitted: $forall x, P(x)$ or $exists x, P(x)$. However, the truth value of a quantified statement can change with different domains, so the domain should always be explicitly stated or unambiguously understood.
+]
+
+#example[
+  Let the domain be $RR$ (the real numbers). Determine the truth value of each statement.
+
+  (a) $forall x in RR, x^2 >= 0$ — *true.* The square of any real number is non-negative.
+
+  (b) $forall x in RR, x^2 > 0$ — *false.* The value $x = 0$ is a counterexample, since $0^2 = 0$ which is not strictly positive.
+
+  (c) $exists x in RR, x^2 = 2$ — *true.* The value $x = sqrt(2)$ satisfies $x^2 = 2$.
+
+  (d) $exists x in RR, x^2 = -1$ — *false.* No real number has a negative square, so no witness exists.
+]
+
+#example[
+  Let the domain be $ZZ$ (the integers). Determine the truth value of each statement.
+
+  (a) $forall n in ZZ, n^2 >= 0$ — *true.* If $n > 0$ then $n^2 > 0$; if $n = 0$ then $n^2 = 0$; if $n < 0$ then $n^2 > 0$. In all cases $n^2 >= 0$.
+
+  (b) $exists n in ZZ, n^2 = 2$ — *false.* Since $1^2 = 1$ and $2^2 = 4$, and there is no integer strictly between 1 and 2, no integer squared equals 2.
+]
+
+#important[
+  To *disprove* a universal statement $forall x in D, P(x)$, it suffices to exhibit a single *counterexample* — one value $x_0 in D$ for which $P(x_0)$ is false.
+
+  To *prove* an existential statement $exists x in D, P(x)$, it suffices to exhibit a single *witness* — one value $x_0 in D$ for which $P(x_0)$ is true.
+
+  For a finite domain, a universal statement can be verified by checking every element; for an infinite domain, a general argument is required.
+]
 
 === Negation of Quantified Statements
 
-#lorem(25)
+The negation of a quantified statement follows a pattern directly analogous to De Morgan's laws: the quantifier flips and the predicate is negated.
+
+#theorem("Quantifier Negation Laws")[
+  Let $P(x)$ be a predicate with domain $D$. Then:
+  $
+    not (forall x in D, P(x)) & equiv exists x in D, not P(x) \
+    not (exists x in D, P(x)) & equiv forall x in D, not P(x)
+  $
+]
+
+#proof[
+  For the first law: $not (forall x in D, P(x))$ is true exactly when it is not the case that $P(x)$ holds for every $x in D$ — that is, when there exists some $x in D$ for which $P(x)$ is false, i.e., $exists x in D, not P(x)$.
+
+  For the second law: $not (exists x in D, P(x))$ is true exactly when no element of $D$ satisfies $P(x)$ — that is, $P(x)$ is false for every $x in D$, i.e., $forall x in D, not P(x)$.
+]
+
+In plain language: *the negation of an "all" statement is a "some … not" statement, and the negation of a "some" statement is an "all … not" statement.*
+
+#example[
+  Write the negation of each statement formally and in words, and determine its truth value. The domain is $ZZ$.
+
+  (a) Original: $forall n in ZZ, n + 1 > n$ — "Every integer is less than its successor." *True.*
+
+  Negation: $exists n in ZZ, n + 1 lt.eq n$ — "There exists an integer that is not less than its successor." *False.*
+
+  (b) Original: $exists n in ZZ, n^2 < 0$ — "There exists an integer with a negative square." *False.*
+
+  Negation: $forall n in ZZ, n^2 >= 0$ — "Every integer has a non-negative square." *True.*
+]
+
+#example[
+  Negate the following English sentences.
+
+  (a) "All students passed the exam."
+
+  *Negation:* "There exists at least one student who did not pass the exam."
+
+  (b) "Some prime number is even."
+
+  *Negation:* "No prime number is even" (equivalently, "Every prime number is odd").
+
+  Note: statement (b) is *true* (since 2 is an even prime), so its negation is *false*.
+]
+
+#important[
+  A common error is to negate "all $P$s are $Q$" as "all $P$s are not $Q$." The correct negation is "some $P$ is not $Q$." The statement "all $P$s are not $Q$" (i.e., no $P$ is $Q$) is a stronger claim than the negation requires.
+]
 
 === Statements with Multiple Quantifiers
 
-#lorem(25)
+Many important mathematical statements involve predicates of two or more variables and require nested quantifiers. Reading such statements carefully from left to right is essential.
+
+#definition[
+  Let $P(x, y)$ be a predicate with variables $x in D$ and $y in E$. A *multiply-quantified statement* uses two or more quantifiers in sequence:
+  - $forall x in D, exists y in E, P(x, y)$ — "For every $x$ in $D$, there exists a $y$ in $E$ such that $P(x, y)$." The witness $y$ may depend on $x$.
+  - $exists x in D, forall y in E, P(x, y)$ — "There exists an $x$ in $D$ such that $P(x, y)$ holds for every $y$ in $E$." A single fixed $x$ must work for all $y$.
+]
+
+#example[
+  Let the domain be $RR$ for both variables, and let $P(x, y)$ be "$x + y = 0$."
+
+  (a) $forall x in RR, exists y in RR, x + y = 0$
+
+  *True.* For any $x in RR$, take $y = -x$; then $x + y = x + (-x) = 0$.
+
+  (b) $exists x in RR, forall y in RR, x + y = 0$
+
+  *False.* This would require a single fixed $x$ satisfying $x + y = 0$ for every real $y$, which is impossible since $y$ varies freely.
+]
+
+#example[
+  Let the domain be $ZZ$ for both variables, and let $P(x, y)$ be "$x < y$."
+
+  (a) $forall x in ZZ, exists y in ZZ, x < y$ — *true.* For any integer $x$, take $y = x + 1$.
+
+  (b) $exists y in ZZ, forall x in ZZ, x < y$ — *false.* This claims the existence of a largest integer, but $ZZ$ is unbounded above.
+]
+
+#remark[
+  When evaluating $forall x in D, exists y in E, P(x, y)$: for each fixed $x$, a suitable $y$ must exist, but $y$ may be chosen depending on $x$.
+
+  When evaluating $exists x in D, forall y in E, P(x, y)$: a single $x$ must be found that simultaneously satisfies $P(x, y)$ for every $y in E$. This is generally a stronger requirement.
+]
 
 === Order of Quantifiers
 
-#lorem(25)
+The order in which quantifiers appear matters when they are of *mixed* type (one universal, one existential), but not when they are of the *same* type.
+
+#theorem[
+  For any predicate $P(x, y)$ with $x in D$ and $y in E$:
+  $
+    (forall x in D, forall y in E, P(x, y)) & equiv (forall y in E, forall x in D, P(x, y)) \
+    (exists x in D, exists y in E, P(x, y)) & equiv (exists y in E, exists x in D, P(x, y))
+  $
+  In general, $(forall x in D, exists y in E, P(x, y))$ is *not* equivalent to $(exists y in E, forall x in D, P(x, y))$.
+]
+
+#proof[
+  The first equivalence holds because $forall x in D, forall y in E, P(x, y)$ is true exactly when $P(x, y)$ holds for every pair $(x, y) in D times E$, a condition symmetric in $x$ and $y$. The second equivalence is analogous. The non-equivalence of the mixed case is shown by the examples above: in the domain $RR$ with $P(x, y)$ being "$x + y = 0$," the statement $forall x, exists y, x + y = 0$ is true while $exists y, forall x, x + y = 0$ is false.
+]
+
+#example[
+  Let the domain be $ZZ$ for both variables, and let $P(x, y)$ be "$x dot y = x$."
+
+  - $forall x in ZZ, forall y in ZZ, x y = x$ — *false* (take $x = 1, y = 2$: $1 dot 2 = 2 eq.not 1$).
+  - $forall y in ZZ, forall x in ZZ, x y = x$ — *false* (same counterexample; order of $forall forall$ does not matter).
+  - $forall x in ZZ, exists y in ZZ, x y = x$ — *true* (take $y = 1$ for any $x$).
+  - $exists y in ZZ, forall x in ZZ, x y = x$ — *true* ($y = 1$ works for every $x$).
+
+  Here the mixed statements happen to have the same truth value, but this is not the case in general.
+]
+
+#important[
+  The statement $exists y in E, forall x in D, P(x, y)$ is logically *stronger* than $forall x in D, exists y in E, P(x, y)$:
+  - If a single $y$ works for all $x$, it certainly provides a witness for each individual $x$.
+  - However, the converse fails: having a (possibly different) witness $y$ for each $x$ does not guarantee a single universal witness.
+
+  In symbols:
+  $ (exists y in E, forall x in D, P(x, y)) arrow.r (forall x in D, exists y in E, P(x, y)) $
+  but the reverse implication does not hold in general.
+]
