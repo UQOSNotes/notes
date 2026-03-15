@@ -21,25 +21,73 @@ jobs:
       - name: Detect changed courses
         id: changed
         run: |
-          # Find all main.typ files in changed directories
-          git diff --name-only HEAD~1 HEAD | \
-            grep '\.typ$' | \
-            sed 's|/[^/]*$||' | \
-            sort -u > changed_dirs.txt
-          
-          # Walk up to find the course root (contains main.typ)
+          # Track changed and removed Typst paths, including rename old/new paths.
+          git diff --name-status --find-renames HEAD~1 HEAD > changed_files_status.txt
+
+          : > changed_dirs.txt
+          : > removed_candidate_dirs.txt
+
+          while IFS=$'\t' read -r status path1 path2; do
+            case "$status" in
+              D)
+                if echo "$path1" | grep -q '\.typ$'; then
+                  echo "${path1%/*}" >> removed_candidate_dirs.txt
+                fi
+                ;;
+              R*)
+                if echo "$path1" | grep -q '\.typ$'; then
+                  echo "${path1%/*}" >> removed_candidate_dirs.txt
+                fi
+                if echo "$path2" | grep -q '\.typ$'; then
+                  echo "${path2%/*}" >> changed_dirs.txt
+                fi
+                ;;
+              *)
+                if echo "$path1" | grep -q '\.typ$'; then
+                  echo "${path1%/*}" >> changed_dirs.txt
+                fi
+                ;;
+            esac
+          done < changed_files_status.txt
+
+          sort -u changed_dirs.txt -o changed_dirs.txt
+          sort -u removed_candidate_dirs.txt -o removed_candidate_dirs.txt
+
+          # Walk up to find course roots that exist in the current commit.
+          : > course_roots.txt
           while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
             while [ "$dir" != "." ]; do
               if [ -f "$dir/main.typ" ]; then
-                echo "$dir"
+                echo "$dir" >> course_roots.txt
                 break
               fi
               dir=$(dirname "$dir")
             done
-          done < changed_dirs.txt | sort -u > course_roots.txt
-          
-          cat course_roots.txt
-          echo "courses=$(cat course_roots.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          done < changed_dirs.txt
+          sort -u course_roots.txt -o course_roots.txt
+
+          # Walk up to find course roots that existed in the previous commit.
+          : > removed_course_roots.txt
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            while [ "$dir" != "." ]; do
+              if git cat-file -e "HEAD~1:$dir/main.typ" 2>/dev/null; then
+                echo "$dir" >> removed_course_roots.txt
+                break
+              fi
+              dir=$(dirname "$dir")
+            done
+          done < removed_candidate_dirs.txt
+          sort -u removed_course_roots.txt -o removed_course_roots.txt
+
+          echo "Changed course roots:"
+          cat course_roots.txt || true
+          echo "Removed course roots:"
+          cat removed_course_roots.txt || true
+
+          echo "courses=$(tr '\n' ' ' < course_roots.txt)" >> $GITHUB_OUTPUT
+          echo "removed_courses=$(tr '\n' ' ' < removed_course_roots.txt)" >> $GITHUB_OUTPUT
 
       - name: Compile changed courses
         run: |
@@ -53,8 +101,15 @@ jobs:
           SITE_REPO_TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
         run: |
           git clone https://x-access-token:${SITE_REPO_TOKEN}@github.com/UQOSNotes/uqosnotes.github.io.git site-repo
+
+          while IFS= read -r course; do
+            [ -z "$course" ] && continue
+            rm -f "site-repo/public/notes/$course/notes.pdf"
+            rmdir -p --ignore-fail-on-non-empty "site-repo/public/notes/$course" 2>/dev/null || true
+          done < removed_course_roots.txt
           
           while IFS= read -r course; do
+            [ -z "$course" ] && continue
             dest="site-repo/public/notes/$course"
             mkdir -p "$dest"
             cp "$course/notes.pdf" "$dest/notes.pdf"
