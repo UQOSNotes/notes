@@ -16,6 +16,17 @@ In this chapter we study:
 
 The goal of combinatorics is to count the elements of a finite set without listing them all. The two most fundamental tools are the addition principle and the multiplication principle, from which all other counting methods are built.
 
+#important("Method Selector (Counting)")[
+  Use this quick guide before choosing a formula:
+
+  - *Addition principle* ($+$): when you have mutually exclusive cases ("or").
+  - *Multiplication principle* ($times$): when a process has sequential independent steps ("and").
+  - *Permutations* $P(n,r)$: when order matters, without repetition.
+  - *Combinations* $binom(n,r)$: when order does not matter, without repetition.
+  - *Selections with repetition* $binom(n+r-1,r)$: when order does not matter, with repetition.
+  - *Arrangements with repeated elements* $n!/(n_1!n_2!dots.c n_k!)$: when items are not all distinct.
+]
+
 === The Addition and Multiplication Principles
 
 #theorem("Addition Principle")[
