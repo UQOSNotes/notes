@@ -150,7 +150,12 @@ Every induction proof has a standard structure:
   *Base case* ($n = 0$): $0^3 - 0 = 0 = 3 times 0$. ✓
 
   *Inductive step:* Suppose $3 | (k^3 - k)$. Then:
-  $ (k+1)^3 - (k+1) = k^3 + 3k^2 + 3k + 1 - k - 1 = (k^3 - k) + 3k^2 + 3k = (k^3 - k) + 3k(k+1) $
+  $
+    (k+1)^3 - (k+1)
+    &= k^3 + 3k^2 + 3k + 1 - k - 1 \
+    &= (k^3 - k) + 3k^2 + 3k \
+    &= (k^3 - k) + 3k(k+1)
+  $
 
   Since $3 | (k^3 - k)$ and $3 | 3k(k+1)$, we have $3 | ((k+1)^3 - (k+1))$. ✓
 
