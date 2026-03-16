@@ -4,8 +4,6 @@ name: Compile and Deploy Notes
 on:
   push:
     branches: [main]
-    paths:
-      - '**/*.typ'
 
 jobs:
   compile:
@@ -17,6 +15,8 @@ jobs:
 
       - name: Install Typst
         uses: typst-community/setup-typst@v3
+        with:
+          typst-version: latest
 
       - name: Detect changed courses
         id: changed
@@ -131,5 +131,5 @@ jobs:
           git config user.name "UQOSNotes Bot"
           git config user.email "bot@uqosnotes.github.io"
           git add public/notes/
-          git diff --staged --quiet || git commit -m "chore: update compiled notes [skip ci]"
+          git diff --staged --quiet || git commit -m "chore: update compiled notes"
           git push
