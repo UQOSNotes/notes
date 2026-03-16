@@ -21,6 +21,18 @@ jobs:
       - name: Detect changed courses
         id: changed
         run: |
+          if git diff --name-only HEAD~1 HEAD | grep -Eq '^lib\.typ$'; then
+            find . -name main.typ -printf '%h\n' | sed 's#^\./##' | sort -u > course_roots.txt
+            : > removed_course_roots.txt
+
+            echo "Changed course roots (lib.typ changed):"
+            cat course_roots.txt || true
+
+            echo "courses=$(tr '\n' ' ' < course_roots.txt)" >> $GITHUB_OUTPUT
+            echo "removed_courses=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           # Track changed and removed Typst paths, including rename old/new paths.
           git diff --name-status --find-renames HEAD~1 HEAD > changed_files_status.txt
 
