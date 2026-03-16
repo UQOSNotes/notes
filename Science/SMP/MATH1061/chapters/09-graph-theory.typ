@@ -157,6 +157,64 @@ In this chapter we study:
   A graph is bipartite if and only if it contains no odd cycle.
 ]
 
+=== Planar Graphs and Euler's Formula
+
+#definition[
+  A graph is *planar* if it can be drawn in the plane without edge crossings (except at shared endpoints). Such a drawing is a *plane embedding*. The connected regions determined by the embedding are called *faces* (including the unbounded outer face).
+]
+
+#theorem("Euler's Formula for Connected Planar Graphs")[
+  If a connected planar graph has $V$ vertices, $E$ edges, and $F$ faces in a plane embedding, then
+  $ V - E + F = 2. $
+]
+
+#example[
+  A square with one diagonal is planar with $V = 4$, $E = 5$, and $F = 3$ (two bounded triangular faces and one outer face). Hence
+  $V - E + F = 4 - 5 + 3 = 2$.
+]
+
+#diagram(caption: [
+  A planar embedding of a connected graph with $V=4$, $E=5$, $F=3$.
+  The two interior triangles and the exterior region are the three faces, so
+  Euler's formula gives $4 - 5 + 3 = 2$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let rd = 0.12
+      let sw = 0.7pt + black
+      let a = (0.0, 1.8)
+      let b = (2.2, 1.8)
+      let c = (2.2, 0.0)
+      let d = (0.0, 0.0)
+
+      let seg(f, t) = {
+        let dx = t.at(0) - f.at(0)
+        let dy = t.at(1) - f.at(1)
+        let dist = calc.sqrt(dx * dx + dy * dy)
+        draw.line(
+          (f.at(0) + rd * dx / dist, f.at(1) + rd * dy / dist),
+          (t.at(0) - rd * dx / dist, t.at(1) - rd * dy / dist),
+          stroke: sw)
+      }
+
+      seg(a, b); seg(b, c); seg(c, d); seg(d, a); seg(a, c)
+
+      for p in (a, b, c, d) {
+        draw.circle(p, radius: rd, fill: black, stroke: none)
+      }
+
+      draw.content((-0.28, 1.8), text(size: 8.5pt)[$a$])
+      draw.content((2.48, 1.8), text(size: 8.5pt)[$b$])
+      draw.content((2.48, 0.0), text(size: 8.5pt)[$c$])
+      draw.content((-0.28, 0.0), text(size: 8.5pt)[$d$])
+
+      draw.content((1.55, 1.20), text(size: 8pt)[$f_1$])
+      draw.content((0.70, 0.62), text(size: 8pt)[$f_2$])
+      draw.content((3.00, 0.95), text(size: 8pt)[outer face])
+    })
+  ]
+]
+
 === Degree of a Vertex
 
 #definition[
@@ -170,6 +228,46 @@ In this chapter we study:
 
 #proof[
   Each edge $\{u, v\}$ contributes 1 to $deg(u)$ and 1 to $deg(v)$, so contributes exactly 2 to the sum $sum_v deg(v)$. Summing over all edges gives $2|E|$.
+]
+
+#diagram(caption: [
+  Handshaking theorem intuition: summing local degrees counts each edge twice,
+  once from each endpoint. Here $(deg(a),deg(b),deg(c),deg(d),deg(e)) = (2,3,3,2,2)$,
+  so $sum deg(v)=12 = 2 times 6 = 2|E|$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let rd = 0.12
+      let sw = 0.7pt + black
+      let a = (0.0, 1.1)
+      let b = (1.4, 2.1)
+      let c = (2.8, 1.1)
+      let d = (2.2, 0.0)
+      let e = (0.6, 0.0)
+
+      let seg(f, t) = {
+        let dx = t.at(0) - f.at(0)
+        let dy = t.at(1) - f.at(1)
+        let dist = calc.sqrt(dx * dx + dy * dy)
+        draw.line(
+          (f.at(0) + rd * dx / dist, f.at(1) + rd * dy / dist),
+          (t.at(0) - rd * dx / dist, t.at(1) - rd * dy / dist),
+          stroke: sw)
+      }
+
+      seg(a, b); seg(b, c); seg(c, d); seg(d, e); seg(e, a); seg(b, d)
+
+      for p in (a, b, c, d, e) {
+        draw.circle(p, radius: rd, fill: black, stroke: none)
+      }
+
+      draw.content((-0.28, 1.1), text(size: 8.5pt)[$a(2)$])
+      draw.content((1.4,  2.42), text(size: 8.5pt)[$b(3)$])
+      draw.content((3.08, 1.1), text(size: 8.5pt)[$c(3)$])
+      draw.content((2.2, -0.30), text(size: 8.5pt)[$d(2)$])
+      draw.content((0.6, -0.30), text(size: 8.5pt)[$e(2)$])
+    })
+  ]
 ]
 
 #theorem[

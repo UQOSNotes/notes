@@ -190,6 +190,65 @@ Relations on a set can possess several structural properties. These properties d
   Symmetric and antisymmetric are not opposites. A relation can be both (e.g., $=$), one but not the other, or neither (e.g., $R = {(1,2), (2,1), (1,3)}$ is neither symmetric nor antisymmetric on ${1,2,3}$).
 ]
 
+#diagram(caption: [
+  Visual intuition for common relation properties on a finite set.
+  Left: reflexive (every vertex has a loop).
+  Middle: symmetric (arrows come in opposite-direction pairs).
+  Right: not transitive example: $1 -> 2$ and $2 -> 3$ but no arrow $1 -> 3$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let rd = 0.12
+      let sw = 0.7pt + black
+
+      let arr(f, t) = {
+        let dx = t.at(0) - f.at(0)
+        let dy = t.at(1) - f.at(1)
+        let d = calc.sqrt(dx * dx + dy * dy)
+        draw.line(
+          (f.at(0) + rd * dx / d, f.at(1) + rd * dy / d),
+          (t.at(0) - (rd + 0.06) * dx / d, t.at(1) - (rd + 0.06) * dy / d),
+          stroke: sw, mark: (end: ">"))
+      }
+
+      let loop-up(p) = {
+        let cx = p.at(0)
+        let cy = p.at(1)
+        draw.bezier(
+          (cx - 0.07, cy + rd),
+          (cx + 0.07, cy + rd),
+          (cx - 0.45, cy + rd + 0.65),
+          (cx + 0.45, cy + rd + 0.65),
+          stroke: sw, mark: (end: ">"))
+      }
+
+      // Reflexive block
+      let r1 = (0.2, 0.8)
+      let r2 = (1.4, 0.8)
+      loop-up(r1); loop-up(r2)
+      for p in (r1, r2) { draw.circle(p, radius: rd, fill: black, stroke: none) }
+      draw.content((0.8, -0.1), text(size: 8pt)[Reflexive])
+
+      // Symmetric block
+      let sx = 4.0
+      let s1 = (sx + 0.0, 0.8)
+      let s2 = (sx + 1.4, 0.8)
+      arr(s1, s2); arr(s2, s1)
+      for p in (s1, s2) { draw.circle(p, radius: rd, fill: black, stroke: none) }
+      draw.content((sx + 0.7, -0.1), text(size: 8pt)[Symmetric])
+
+      // Non-transitive block
+      let tx = 7.6
+      let t1 = (tx + 0.0, 0.8)
+      let t2 = (tx + 1.0, 0.8)
+      let t3 = (tx + 2.0, 0.8)
+      arr(t1, t2); arr(t2, t3)
+      for p in (t1, t2, t3) { draw.circle(p, radius: rd, fill: black, stroke: none) }
+      draw.content((tx + 1.0, -0.1), text(size: 8pt)[Not transitive])
+    })
+  ]
+]
+
 === Transitive Relations
 
 #definition[
