@@ -125,6 +125,46 @@ The following properties follow directly from the definition.
   Since these cases partition all $r$-subsets of $S$, the total is $binom(n-1, r-1) + binom(n-1, r)$.
 ]
 
+#diagram(caption: [
+  Pascal triangle motivation for
+  $binom(n, k) = binom(n-1, k-1) + binom(n-1, k)$.
+  Here $binom(5,2) = 10$ is obtained by adding the two entries above it:
+  $binom(4,1) = 4$ and $binom(4,2) = 6$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let num(p, t, hi: false) = {
+        draw.content(
+          p,
+          if hi {
+            text(size: 9pt, weight: "bold")[$#t$]
+          } else {
+            text(size: 8.5pt)[$#t$]
+          },
+        )
+      }
+
+      // row 0
+      num((3.0, 5.0), 1)
+      // row 1
+      num((2.2, 4.0), 1); num((3.8, 4.0), 1)
+      // row 2
+      num((1.4, 3.0), 1); num((3.0, 3.0), 2); num((4.6, 3.0), 1)
+      // row 3
+      num((0.6, 2.0), 1); num((2.2, 2.0), 3); num((3.8, 2.0), 3); num((5.4, 2.0), 1)
+      // row 4
+      num((-0.2, 1.0), 1); num((1.4, 1.0), 4, hi: true); num((3.0, 1.0), 6, hi: true); num((4.6, 1.0), 4); num((6.2, 1.0), 1)
+      // row 5
+      num((-1.0, 0.0), 1); num((0.6, 0.0), 5); num((2.2, 0.0), 10, hi: true); num((3.8, 0.0), 10); num((5.4, 0.0), 5); num((7.0, 0.0), 1)
+
+      draw.line((1.4, 0.85), (2.2, 0.15), stroke: 0.7pt + black)
+      draw.line((3.0, 0.85), (2.2, 0.15), stroke: 0.7pt + black)
+
+      draw.content((3.8, -0.8), text(size: 8pt)[$4 + 6 = 10$])
+    })
+  ]
+]
+
 == Counting Selections
 
 Not every counting problem involves distinct objects or no repetition. This section considers selections where elements may be repeated, and arrangements of objects that are not all distinct.
