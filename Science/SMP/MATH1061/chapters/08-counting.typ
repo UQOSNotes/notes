@@ -16,8 +16,8 @@ In this chapter we study:
 
 The goal of combinatorics is to count the elements of a finite set without listing them all. The two most fundamental tools are the addition principle and the multiplication principle, from which all other counting methods are built.
 
-#important("Method Selector (Counting)")[
-  Use this quick guide before choosing a formula:
+#important[
+  *Method Selector (Counting):* Use this quick guide before choosing a formula:
 
   - *Addition principle* ($+$): when you have mutually exclusive cases ("or").
   - *Multiplication principle* ($times$): when a process has sequential independent steps ("and").
