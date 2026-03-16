@@ -12,7 +12,7 @@ The notes in this repository are entirely written in [Typst](https://typst.app/d
 2. Clone this repository
 3. Compile any course using the `--root` flag so the template resolves correctly:
    ```sh
-  typst compile --root . Science/SMP/MATH1061/main.typ
+     typst compile --root . Science/SMP/MATH1061/main.typ
    ```
    The `--root .` flag sets the project root to the repo root, allowing `lib.typ` to be found via the `/lib.typ` import path used in each course.
 
