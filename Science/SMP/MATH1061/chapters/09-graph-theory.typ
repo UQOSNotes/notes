@@ -157,6 +157,64 @@ In this chapter we study:
   A graph is bipartite if and only if it contains no odd cycle.
 ]
 
+=== Planar Graphs and Euler's Formula
+
+#definition[
+  A graph is *planar* if it can be drawn in the plane without edge crossings (except at shared endpoints). Such a drawing is a *plane embedding*. The connected regions determined by the embedding are called *faces* (including the unbounded outer face).
+]
+
+#theorem("Euler's Formula for Connected Planar Graphs")[
+  If a connected planar graph has $V$ vertices, $E$ edges, and $F$ faces in a plane embedding, then
+  $ V - E + F = 2. $
+]
+
+#example[
+  A square with one diagonal is planar with $V = 4$, $E = 5$, and $F = 3$ (two bounded triangular faces and one outer face). Hence
+  $V - E + F = 4 - 5 + 3 = 2$.
+]
+
+#diagram(caption: [
+  A planar embedding of a connected graph with $V=4$, $E=5$, $F=3$.
+  The two interior triangles and the exterior region are the three faces, so
+  Euler's formula gives $4 - 5 + 3 = 2$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let rd = 0.12
+      let sw = 0.7pt + black
+      let a = (0.0, 1.8)
+      let b = (2.2, 1.8)
+      let c = (2.2, 0.0)
+      let d = (0.0, 0.0)
+
+      let seg(f, t) = {
+        let dx = t.at(0) - f.at(0)
+        let dy = t.at(1) - f.at(1)
+        let dist = calc.sqrt(dx * dx + dy * dy)
+        draw.line(
+          (f.at(0) + rd * dx / dist, f.at(1) + rd * dy / dist),
+          (t.at(0) - rd * dx / dist, t.at(1) - rd * dy / dist),
+          stroke: sw)
+      }
+
+      seg(a, b); seg(b, c); seg(c, d); seg(d, a); seg(a, c)
+
+      for p in (a, b, c, d) {
+        draw.circle(p, radius: rd, fill: black, stroke: none)
+      }
+
+      draw.content((-0.28, 1.8), text(size: 8.5pt)[$a$])
+      draw.content((2.48, 1.8), text(size: 8.5pt)[$b$])
+      draw.content((2.48, 0.0), text(size: 8.5pt)[$c$])
+      draw.content((-0.28, 0.0), text(size: 8.5pt)[$d$])
+
+      draw.content((1.55, 1.20), text(size: 8pt)[$f_1$])
+      draw.content((0.70, 0.62), text(size: 8pt)[$f_2$])
+      draw.content((3.00, 0.95), text(size: 8pt)[outer face])
+    })
+  ]
+]
+
 === Degree of a Vertex
 
 #definition[
@@ -170,6 +228,46 @@ In this chapter we study:
 
 #proof[
   Each edge $\{u, v\}$ contributes 1 to $deg(u)$ and 1 to $deg(v)$, so contributes exactly 2 to the sum $sum_v deg(v)$. Summing over all edges gives $2|E|$.
+]
+
+#diagram(caption: [
+  Handshaking theorem intuition: summing local degrees counts each edge twice,
+  once from each endpoint. Here $(deg(a),deg(b),deg(c),deg(d),deg(e)) = (2,3,3,2,2)$,
+  so $sum deg(v)=12 = 2 times 6 = 2|E|$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let rd = 0.12
+      let sw = 0.7pt + black
+      let a = (0.0, 1.1)
+      let b = (1.4, 2.1)
+      let c = (2.8, 1.1)
+      let d = (2.2, 0.0)
+      let e = (0.6, 0.0)
+
+      let seg(f, t) = {
+        let dx = t.at(0) - f.at(0)
+        let dy = t.at(1) - f.at(1)
+        let dist = calc.sqrt(dx * dx + dy * dy)
+        draw.line(
+          (f.at(0) + rd * dx / dist, f.at(1) + rd * dy / dist),
+          (t.at(0) - rd * dx / dist, t.at(1) - rd * dy / dist),
+          stroke: sw)
+      }
+
+      seg(a, b); seg(b, c); seg(c, d); seg(d, e); seg(e, a); seg(b, d)
+
+      for p in (a, b, c, d, e) {
+        draw.circle(p, radius: rd, fill: black, stroke: none)
+      }
+
+      draw.content((-0.28, 1.1), text(size: 8.5pt)[$a(2)$])
+      draw.content((1.4,  2.42), text(size: 8.5pt)[$b(3)$])
+      draw.content((3.08, 1.1), text(size: 8.5pt)[$c(3)$])
+      draw.content((2.2, -0.30), text(size: 8.5pt)[$d(2)$])
+      draw.content((0.6, -0.30), text(size: 8.5pt)[$e(2)$])
+    })
+  ]
 ]
 
 #theorem[
@@ -414,237 +512,4 @@ Trees are the simplest connected graphs, and their absence of cycles gives them 
 
 #proof[
   Let $P = v_0, v_1, dots, v_k$ be a longest path in the tree. The endpoints $v_0$ and $v_k$ must be leaves: if $v_0$ had a neighbour $u$ other than $v_1$, then $u$ is not on $P$ (otherwise there would be a cycle), so $u, v_0, v_1, dots, v_k$ would be a longer path, contradicting the maximality of $P$. By the same argument, $v_k$ is a leaf. Since $k >= 1$ (any two vertices are connected by a path), $v_0 != v_k$, giving two distinct leaves.
-]
-
-=== Spanning Trees
-
-#definition[
-  A *spanning tree* of a connected graph $G$ is a subgraph that is both a spanning subgraph (containing all vertices) and a tree.
-]
-
-#theorem[
-  Every connected graph has a spanning tree.
-]
-
-#proof[
-  If $G$ is already a tree, we are done. Otherwise, $G$ contains a cycle; remove one edge of that cycle. The graph remains connected (the two endpoints of the removed edge are still connected via the rest of the cycle). Repeat until no cycle remains. The result is a spanning tree.
-]
-
-#definition[
-  In a *weighted graph*, each edge $e$ is assigned a real number $w(e)$ called its *weight*. The *weight* of a subgraph is the sum of its edge weights. A *minimum spanning tree* (MST) of a connected weighted graph is a spanning tree of minimum total weight.
-]
-
-Minimum spanning trees have applications in network design: finding the cheapest way to connect all nodes in a network.
-
-#theorem("Kruskal's Algorithm")[
-  Sort all edges by weight in non-decreasing order. Add edges to the tree one at a time, skipping any edge that would form a cycle. Stop when $n - 1$ edges have been added. The result is a minimum spanning tree.
-]
-
-#theorem("Prim's Algorithm")[
-  Start from any vertex. At each step, add the minimum-weight edge that connects a vertex already in the tree to a vertex not yet in the tree. Stop when all vertices are included. The result is a minimum spanning tree.
-]
-
-#example[
-  Let $G$ have vertices $\{A, B, C, D\}$ with edge weights: $A$-$B$ = 4, $A$-$C$ = 2, $A$-$D$ = 7, $B$-$C$ = 1, $B$-$D$ = 5, $C$-$D$ = 3.
-
-  *Kruskal:* Sort edges by weight: $B$-$C$ (1), $A$-$C$ (2), $C$-$D$ (3), $A$-$B$ (4), $B$-$D$ (5), $A$-$D$ (7). Add $B$-$C$: no cycle; add $A$-$C$: no cycle; add $C$-$D$: connects $D$ with no cycle formed. Three edges added for four vertices. Done. MST has total weight $1 + 2 + 3 = 6$.
-]
-
-#diagram(caption: [
-  Left: the weighted complete graph on $\{A,B,C,D\}$ with the given edge weights.
-  Right: the minimum spanning tree produced by Kruskal's algorithm, using edges
-  $B$-$C$ (weight~1), $A$-$C$ (weight~2), and $C$-$D$ (weight~3), total weight~6.
-])[
-  #align(center)[
-    #canvas(length: 1cm, {
-      let rd = 0.12
-      let sw   = 0.7pt + black
-      let sw-m = 1.4pt + black   // heavier stroke for MST edges
-
-      let seg(f, t, s: sw) = {
-        let dx = t.at(0) - f.at(0)
-        let dy = t.at(1) - f.at(1)
-        let d = calc.sqrt(dx * dx + dy * dy)
-        draw.line(
-          (f.at(0) + rd * dx / d, f.at(1) + rd * dy / d),
-          (t.at(0) - rd * dx / d, t.at(1) - rd * dy / d),
-          stroke: s)
-      }
-
-      // ── Complete graph (diamond layout) ───────────────────────────────────
-      let nA = (0.0, 1.5)
-      let nB = (1.5, 3.0)
-      let nC = (3.0, 1.5)
-      let nD = (1.5, 0.0)
-
-      seg(nA, nB); seg(nA, nC); seg(nA, nD)
-      seg(nB, nC); seg(nB, nD); seg(nC, nD)
-
-      for p in (nA, nB, nC, nD) {
-        draw.circle(p, radius: rd, fill: black, stroke: none)
-      }
-
-      draw.content((-0.30, 1.50), text(size: 8.5pt)[$A$])
-      draw.content((1.50,  3.30), text(size: 8.5pt)[$B$])
-      draw.content((3.30,  1.50), text(size: 8.5pt)[$C$])
-      draw.content((1.50, -0.30), text(size: 8.5pt)[$D$])
-
-      // edge weight labels
-      draw.content((0.60, 2.40), text(size: 7.5pt)[4])   // A-B
-      draw.content((1.50, 1.72), text(size: 7.5pt)[2])   // A-C
-      draw.content((0.60, 0.60), text(size: 7.5pt)[7])   // A-D
-      draw.content((2.40, 2.40), text(size: 7.5pt)[1])   // B-C
-      draw.content((1.72, 1.50), text(size: 7.5pt)[5])   // B-D
-      draw.content((2.40, 0.60), text(size: 7.5pt)[3])   // C-D
-
-      // ── MST (same layout, x-offset = 5.5) ────────────────────────────────
-      let ox = 5.5
-      let mA = (ox + 0.0, 1.5)
-      let mB = (ox + 1.5, 3.0)
-      let mC = (ox + 3.0, 1.5)
-      let mD = (ox + 1.5, 0.0)
-
-      seg(mB, mC, s: sw-m)   // weight 1
-      seg(mA, mC, s: sw-m)   // weight 2
-      seg(mC, mD, s: sw-m)   // weight 3
-
-      for p in (mA, mB, mC, mD) {
-        draw.circle(p, radius: rd, fill: black, stroke: none)
-      }
-
-      draw.content((ox - 0.30, 1.50), text(size: 8.5pt)[$A$])
-      draw.content((ox + 1.50, 3.30), text(size: 8.5pt)[$B$])
-      draw.content((ox + 3.30, 1.50), text(size: 8.5pt)[$C$])
-      draw.content((ox + 1.50,-0.30), text(size: 8.5pt)[$D$])
-
-      draw.content((ox + 2.40, 2.40), text(size: 7.5pt)[1])   // B-C
-      draw.content((ox + 1.50, 1.72), text(size: 7.5pt)[2])   // A-C
-      draw.content((ox + 2.40, 0.60), text(size: 7.5pt)[3])   // C-D
-    })
-  ]
-]
-
-=== Rooted Trees
-
-#definition[
-  A *rooted tree* is a tree in which one vertex has been designated as the *root*. The root induces a natural hierarchy: for each vertex $v != r$ (root), the unique path from the root to $v$ passes through the *parent* of $v$. The vertex $v$ is then a *child* of its parent. Vertices with no children are *leaves*; all other non-root vertices are *internal vertices*.
-]
-
-#definition[
-  In a rooted tree:
-  - The *level* of a vertex $v$ is the length of the path from the root to $v$. The root has level 0.
-  - The *height* of the tree is the maximum level of any vertex.
-  - The *subtree rooted at $v$* consists of $v$ and all its descendants.
-  - Two vertices with the same parent are *siblings*.
-]
-
-#example[
-  A rooted tree with root $r$, children $a$ and $b$, and $a$ having children $c$ and $d$:
-  - Level 0: $r$
-  - Level 1: $a$, $b$
-  - Level 2: $c$, $d$
-  - Leaves: $b$, $c$, $d$; internal vertices: $r$, $a$; height: 2.
-]
-
-#diagram(caption: [
-  The rooted tree from the example. Root $r$ is at level~0; vertices $a$ and $b$
-  are at level~1; vertices $c$ and $d$ are at level~2. Leaves are $b$, $c$, $d$;
-  the internal vertices are $r$ and $a$; height is~2.
-])[
-  #align(center)[
-    #canvas(length: 1cm, {
-      let rd = 0.12
-      let sw = 0.7pt + black
-      let vr = (2.0, 3.0)
-      let va = (1.0, 1.5)
-      let vb = (3.0, 1.5)
-      let vc = (0.2, 0.0)
-      let vd = (1.8, 0.0)
-
-      let seg(f, t) = {
-        let dx = t.at(0) - f.at(0)
-        let dy = t.at(1) - f.at(1)
-        let d = calc.sqrt(dx * dx + dy * dy)
-        draw.line(
-          (f.at(0) + rd * dx / d, f.at(1) + rd * dy / d),
-          (t.at(0) - rd * dx / d, t.at(1) - rd * dy / d),
-          stroke: sw)
-      }
-
-      seg(vr, va); seg(vr, vb)
-      seg(va, vc); seg(va, vd)
-
-      for p in (vr, va, vb, vc, vd) {
-        draw.circle(p, radius: rd, fill: black, stroke: none)
-      }
-
-      draw.content((2.0,  3.30), text(size: 8.5pt)[$r$])
-      draw.content((0.65, 1.50), text(size: 8.5pt)[$a$])
-      draw.content((3.35, 1.50), text(size: 8.5pt)[$b$])
-      draw.content((0.20,-0.30), text(size: 8.5pt)[$c$])
-      draw.content((1.80,-0.30), text(size: 8.5pt)[$d$])
-    })
-  ]
-]
-
-#definition[
-  A rooted tree is a *binary tree* if every internal vertex has at most two children (a *left child* and a *right child*). A binary tree is *full* if every internal vertex has exactly two children. A *complete binary tree* has all levels fully populated except possibly the last, which is filled from left to right.
-]
-
-#theorem[
-  A full binary tree with $k$ internal vertices has $k + 1$ leaves and $2k + 1$ vertices in total.
-]
-
-#proof[
-  By induction on $k$. For $k = 0$: a single root (which is a leaf), giving 1 leaf and 1 vertex. ✓ For the inductive step, suppose the result holds for all full binary trees with fewer than $k$ internal vertices. Let $T$ be a full binary tree with $k >= 1$ internal vertices. The root has exactly two children; removing the root produces two full binary trees $T_1$ and $T_2$ with $k_1$ and $k_2$ internal vertices where $k_1 + k_2 = k - 1$. By the inductive hypothesis, $T_1$ has $k_1 + 1$ leaves and $T_2$ has $k_2 + 1$ leaves. Restoring the root: the root is internal (not a leaf), so $T$ has $(k_1 + 1) + (k_2 + 1) = k_1 + k_2 + 2 = (k-1) + 2 = k + 1$ leaves, and $2k_1 + 1 + 2k_2 + 1 + 1 = 2(k-1) + 3 = 2k + 1$ total vertices.
-]
-
-#diagram(caption: [
-  A full binary tree with $k = 3$ internal vertices ($r$, $a$, $b$) and
-  $k + 1 = 4$ leaves ($c$, $d$, $e$, $f$), giving $2k + 1 = 7$ vertices in total.
-  Every internal vertex has exactly two children.
-])[
-  #align(center)[
-    #canvas(length: 1cm, {
-      let rd = 0.12
-      let sw = 0.7pt + black
-      let vr = (3.0, 3.0)
-      let va = (1.5, 1.8)
-      let vb = (4.5, 1.8)
-      let vc = (0.6, 0.6)
-      let vd = (2.4, 0.6)
-      let ve = (3.6, 0.6)
-      let vf = (5.4, 0.6)
-
-      let seg(f, t) = {
-        let dx = t.at(0) - f.at(0)
-        let dy = t.at(1) - f.at(1)
-        let d = calc.sqrt(dx * dx + dy * dy)
-        draw.line(
-          (f.at(0) + rd * dx / d, f.at(1) + rd * dy / d),
-          (t.at(0) - rd * dx / d, t.at(1) - rd * dy / d),
-          stroke: sw)
-      }
-
-      seg(vr, va); seg(vr, vb)
-      seg(va, vc); seg(va, vd)
-      seg(vb, ve); seg(vb, vf)
-
-      for p in (vr, va, vb, vc, vd, ve, vf) {
-        draw.circle(p, radius: rd, fill: black, stroke: none)
-      }
-
-      draw.content((3.0,  3.30), text(size: 8.5pt)[$r$])
-      draw.content((1.18, 1.80), text(size: 8.5pt)[$a$])
-      draw.content((4.82, 1.80), text(size: 8.5pt)[$b$])
-      draw.content((0.60, 0.30), text(size: 8.5pt)[$c$])
-      draw.content((2.40, 0.30), text(size: 8.5pt)[$d$])
-      draw.content((3.60, 0.30), text(size: 8.5pt)[$e$])
-      draw.content((5.40, 0.30), text(size: 8.5pt)[$f$])
-    })
-  ]
-]
-
-#remark[
-  Binary trees appear throughout computer science. Binary search trees support efficient searching, insertion, and deletion in $O(log n)$ time when balanced. Heaps, used in priority queues and Dijkstra's algorithm, are often implemented as complete binary trees stored in arrays. Expression trees represent arithmetic expressions with operators at internal nodes and operands at leaves.
 ]
