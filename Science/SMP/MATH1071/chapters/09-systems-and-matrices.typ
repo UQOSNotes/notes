@@ -179,8 +179,6 @@ Linear algebra begins with the problem of solving several linear equations at on
   $
 ]
 
-#pagebreak()
-
 #example[
   For
   $
