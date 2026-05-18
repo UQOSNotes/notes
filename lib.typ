@@ -6,18 +6,18 @@
 // ── Colour palette ────────────────────────────────────────────────────────────
 
 #let _c = (
-  theorem: rgb("#2563eb"),
-  definition: rgb("#0d9488"),
-  proof: rgb("#7c3aed"),
-  example: rgb("#d97706"),
+  theorem: rgb("#1f4e8c"),
+  definition: rgb("#0f766e"),
+  proof: rgb("#52525b"),
+  example: rgb("#9a5a16"),
   remark: rgb("#6b7280"),
-  note: rgb("#0891b2"),
-  important: rgb("#dc2626"),
-  algorithm: rgb("#6d28d9"),
+  note: rgb("#0e7490"),
+  important: rgb("#b42318"),
+  algorithm: rgb("#5b21b6"),
   code: rgb("#1e293b"),
   diagram: rgb("#374151"),
-  exercise: rgb("#ea580c"),
-  solution: rgb("#16a34a"),
+  exercise: rgb("#a64718"),
+  solution: rgb("#166534"),
 )
 
 // ── Counters ──────────────────────────────────────────────────────────────────
@@ -30,21 +30,65 @@
 
 // ── Internal helpers ──────────────────────────────────────────────────────────
 
-#let _make-box(color, label, body) = {
+#let _statement-block(color, label, body) = {
   block(
     width: 100%,
     breakable: true,
-    inset: (left: 14pt, right: 12pt, top: 10pt, bottom: 10pt),
-    fill: color.lighten(91%),
-    stroke: (left: 3pt + color),
-    radius: (right: 2pt),
+    inset: (left: 12pt, right: 11pt, top: 8pt, bottom: 8pt),
+    fill: color.lighten(97%),
+    stroke: (
+      rest: 0.45pt + color.lighten(68%),
+      left: 2pt + color.lighten(18%),
+    ),
+    radius: 2pt,
+    above: 0.75em,
+    below: 0.75em,
   )[
     #block(
       spacing: 0pt,
       sticky: true,
-    )[#text(weight: "bold", fill: color)[#label]]
-    #v(5pt)
+    )[#text(size: 10pt, weight: "bold", fill: color)[#label]]
+    #v(4pt)
     #body
+  ]
+}
+
+#let _callout-block(color, label, body) = {
+  block(
+    width: 100%,
+    breakable: true,
+    inset: (left: 12pt, right: 11pt, top: 8pt, bottom: 8pt),
+    fill: color.lighten(96%),
+    stroke: (
+      rest: 0.45pt + color.lighten(68%),
+      left: 2pt + color.lighten(12%),
+    ),
+    radius: 2pt,
+    above: 0.75em,
+    below: 0.75em,
+  )[
+    #block(
+      spacing: 0pt,
+      sticky: true,
+    )[#text(size: 10pt, weight: "bold", fill: color)[#label]]
+    #v(4pt)
+    #body
+  ]
+}
+
+#let _proof-block(body) = {
+  block(
+    width: 100%,
+    breakable: true,
+    inset: (left: 0pt, right: 0pt, top: 2pt, bottom: 2pt),
+    above: 0.45em,
+    below: 0.65em,
+  )[
+    #text(style: "italic", fill: luma(55))[Proof.]
+    #h(0.35em)
+    #body
+    #h(1fr)
+    $square$
   ]
 }
 
@@ -68,7 +112,7 @@
   context {
     let n = ctr.get().first()
     let label = if title == none { [#name #n] } else { [#name #n (#title)] }
-    _make-box(color, label, body)
+    _statement-block(color, label, body)
   }
 }
 
@@ -130,9 +174,9 @@
     },
   )
 
-  set text(size: 12pt, lang: "en", font: "New Computer Modern")
+  set text(size: 11.5pt, lang: "en", font: "New Computer Modern")
   set heading(numbering: "1.1")
-  set par(justify: true, leading: 0.7em)
+  set par(justify: true, leading: 0.74em)
   show heading: it => {
     v(0.8em, weak: true)
     it
@@ -142,7 +186,7 @@
   // Title block
   v(2cm)
   align(center)[
-    #block(text(size: 26pt, weight: "bold")[#title])
+    #block(text(size: 23pt, weight: "bold", hyphenate: false)[#title])
     #if course != "" or year != "" {
       v(0.4em)
       let subtitle = (course, year).filter(s => s != "").join("  \u{00b7}  ")
@@ -218,7 +262,7 @@
 
 /// Proof box. Ends with a QED symbol.
 #let proof(body) = {
-  _make-box(_c.proof, [Proof], [#body #h(1fr) $square$])
+  _proof-block(body)
 }
 
 // ── Example ───────────────────────────────────────────────────────────────────
@@ -232,13 +276,13 @@
 // ── Unnumbered callouts ───────────────────────────────────────────────────────
 
 /// Remark box.
-#let remark(body) = { _make-box(_c.remark, [Remark], body) }
+#let remark(body) = { _statement-block(_c.remark, [Remark], body) }
 
 /// Note box.
-#let note(body) = { _make-box(_c.note, [Note], body) }
+#let note(body) = { _callout-block(_c.note, [Note], body) }
 
 /// Important box.
-#let important(body) = { _make-box(_c.important, [Important], body) }
+#let important(body) = { _callout-block(_c.important, [Important], body) }
 
 // ── Exercise & Solution ───────────────────────────────────────────────────────
 
@@ -249,7 +293,7 @@
 }
 
 /// Solution box.
-#let solution(body) = { _make-box(_c.solution, [Solution], body) }
+#let solution(body) = { _statement-block(_c.solution, [Solution], body) }
 
 // ── Algorithm ─────────────────────────────────────────────────────────────────
 
@@ -257,7 +301,7 @@
 #let algorithm(..args) = {
   let (title, body) = _resolve-args(args)
   let label = if title == none { [Algorithm] } else { [Algorithm \u{2014} #title] }
-  _make-box(_c.algorithm, label, body)
+  _statement-block(_c.algorithm, label, body)
 }
 
 // ── Code ──────────────────────────────────────────────────────────────────────
