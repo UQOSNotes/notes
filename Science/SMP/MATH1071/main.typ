@@ -18,3 +18,4 @@
 #include "chapters/09-systems-and-matrices.typ"
 #include "chapters/10-determinants-and-eigenvalues.typ"
 #include "chapters/11-vector-spaces.typ"
+#include "chapters/12-revision-guide.typ"

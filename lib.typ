@@ -186,7 +186,7 @@
   // Title block
   v(2cm)
   align(center)[
-    #block(text(size: 26pt, weight: "bold")[#title])
+    #block(text(size: 23pt, weight: "bold", hyphenate: false)[#title])
     #if course != "" or year != "" {
       v(0.4em)
       let subtitle = (course, year).filter(s => s != "").join("  \u{00b7}  ")
