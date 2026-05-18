@@ -212,7 +212,7 @@ The following facts are normally used without comment in high-school algebra. In
 ]
 
 #example("Integers modulo 3")[
-  The set $ZZ / 3 ZZ = {0, 1, 2}$ is a field when addition and multiplication are performed modulo $3$.
+  The set $op("Z")_3 = {0, 1, 2}$ is a field when addition and multiplication are performed modulo $3$.
 
   #table(
     columns: 4,
@@ -236,15 +236,15 @@ The following facts are normally used without comment in high-school algebra. In
 ]
 
 #example("Integers modulo 6")[
-  The set $ZZ / 6 ZZ = {0, 1, 2, 3, 4, 5}$ is not a field. In modulo $6$ arithmetic,
+  The set $op("Z")_6 = {0, 1, 2, 3, 4, 5}$ is not a field. In modulo $6$ arithmetic,
   $
     2 dot 3 = 6 = 0.
   $
-  But $2 != 0$ and $3 != 0$. This violates the no-zero-divisors property, so $ZZ / 6 ZZ$ cannot be a field.
+  But $2 != 0$ and $3 != 0$. This violates the no-zero-divisors property, so $op("Z")_6$ cannot be a field.
 ]
 
 #remark[
-  More generally, $ZZ / p ZZ$ is a field when $p$ is prime. If $n$ is composite, then $ZZ / n ZZ$ has nonzero zero divisors and is not a field.
+  More generally, $op("Z")_p$ is a field when $p$ is prime. If $n$ is composite, then $op("Z")_n$ has nonzero zero divisors and is not a field.
 ]
 
 == Ordered Fields
