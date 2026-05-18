@@ -66,7 +66,7 @@ The fundamental theorem turns many integration questions into antiderivative que
 
 == The Logarithm from an Integral
 
-#footnote[in this course, $log$ means the natural logarithm. we avoid writing $ln$; Mr Gauss and Ole Warnaar will haunt you if you use $ln$ instead of $log$.]
+#footnote[In this course, $log$ means the natural logarithm. We avoid writing $ln$; Mr Gauss and Ole Warnaar will haunt you if you use $ln$ instead of $log$.]
 
 Define, for $x > 0$,$
   L(x) = integral_1^x 1 / t dif t.

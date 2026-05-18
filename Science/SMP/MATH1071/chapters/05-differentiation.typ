@@ -141,7 +141,7 @@ Differentiation measures the best linear approximation to a function at a point.
       = cos^2 x - sin^2 x,
   $
   $
-    ("d" / "d" x) ln(x^2 + 1)
+    ("d" / "d" x) log(x^2 + 1)
       = (2x) / (x^2 + 1),
   $
   $
@@ -220,12 +220,12 @@ Differentiation measures the best linear approximation to a function at a point.
 
 #example[
   $
-    lim_(x -> 0^+) x ln x
-      = lim_(x -> 0^+) (ln x) / (1 / x).
+    lim_(x -> 0^+) x log x
+      = lim_(x -> 0^+) (log x) / (1 / x).
   $
   This is an $-infinity / infinity$ form, so by #link(<thm:lhopital>)[L'Hopital's rule],
   $
-    lim_(x -> 0^+) (ln x) / (1 / x)
+    lim_(x -> 0^+) (log x) / (1 / x)
       = lim_(x -> 0^+) (1 / x) / (-1 / x^2)
       = lim_(x -> 0^+) -x
       = 0.
@@ -234,7 +234,7 @@ Differentiation measures the best linear approximation to a function at a point.
 
 #example[
   $
-    lim_(x -> 1) (5 ln x) / (x - 1)
+    lim_(x -> 1) (5 log x) / (x - 1)
       = lim_(x -> 1) (5 / x) / 1
       = 5.
   $
