@@ -55,6 +55,31 @@ Bounds need not be elements of the set. The interval $(0, 3)$ has upper bound $3
   Then $sup Omega = 13$ and $inf Omega = -1$. In this case the supremum and infimum are also the maximum and minimum.
 ]
 
+#diagram(caption: [
+  For $(0, 3)$ the supremum and infimum are endpoints approached by the set, even though neither endpoint belongs to it.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let axis = 0.75pt + luma(80)
+      let accent = rgb("#1f4e8c")
+      let weak = 0.55pt + luma(150)
+
+      draw.line((0, 0), (8, 0), stroke: axis)
+      for x in (1, 3.0, 6.0) {
+        draw.line((x, -0.12), (x, 0.12), stroke: weak)
+      }
+
+      draw.line((1.8, 0), (6.2, 0), stroke: 2pt + accent)
+      draw.circle((1.8, 0), radius: 0.08, fill: white, stroke: 0.7pt + accent)
+      draw.circle((6.2, 0), radius: 0.08, fill: white, stroke: 0.7pt + accent)
+
+      draw.content((1.8, -0.42), text(size: 8.5pt)[$0 = inf(0,3)$])
+      draw.content((6.2, -0.42), text(size: 8.5pt)[$3 = sup(0,3)$])
+      draw.content((4.0, 0.38), text(size: 8.5pt)[$Omega = (0,3)$])
+    })
+  ]
+]
+
 #proposition[
   If a supremum or infimum exists, it is unique.
 ]
@@ -65,7 +90,7 @@ Bounds need not be elements of the set. The interval $(0, 3)$ has upper bound $3
   The proof for infima is the same with the inequalities reversed.
 ]
 
-#theorem("Least upper bound property of $RR$")[
+#theorem[Least upper bound property of $RR$][
   Every non-empty subset of $RR$ that is bounded above has a supremum in $RR$.
 ]
 
@@ -163,6 +188,40 @@ $
 $
 convergence means that every epsilon neighbourhood of $L$ eventually contains the whole tail of the sequence.
 
+#diagram(caption: [
+  A sequence converges to $L$ if, for every band of width $epsilon$ around $L$, all sufficiently late terms lie inside the band.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let axis = 0.65pt + luma(90)
+      let band = rgb("#0f766e")
+      let dot = rgb("#1f4e8c")
+      let faint = 0.55pt + luma(180)
+
+      draw.line((0, 2.0), (8.4, 2.0), stroke: 0.8pt + band)
+      draw.line((0, 2.7), (8.4, 2.7), stroke: faint)
+      draw.line((0, 1.3), (8.4, 1.3), stroke: faint)
+      draw.content((-0.35, 2.0), text(size: 8.5pt)[$L$])
+      draw.content((-0.55, 2.7), text(size: 8.5pt)[$L + epsilon$])
+      draw.content((-0.55, 1.3), text(size: 8.5pt)[$L - epsilon$])
+
+      let pts = (
+        (0.5, 3.25), (1.0, 0.95), (1.5, 2.85), (2.0, 1.15),
+        (2.5, 2.55), (3.0, 1.55), (3.5, 2.35), (4.0, 1.72),
+        (4.5, 2.25), (5.0, 1.84), (5.5, 2.16), (6.0, 1.91),
+        (6.5, 2.10), (7.0, 1.96), (7.5, 2.06),
+      )
+      for p in pts {
+        draw.circle(p, radius: 0.055, fill: dot, stroke: none)
+      }
+
+      draw.line((3.75, 0.55), (3.75, 3.45), stroke: 0.6pt + luma(120))
+      draw.content((3.75, 0.25), text(size: 8.5pt)[$N$])
+      draw.content((5.95, 3.15), text(size: 8.5pt)[all later terms])
+    })
+  ]
+]
+
 #example("A basic epsilon proof")[
   We prove that
   $
@@ -246,7 +305,7 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
 
 #theorem("Convergent sequences are bounded")[
   Every convergent real sequence is bounded.
-]
+]<thm:convergent-bounded>
 
 #proof[
   Suppose $a_n -> L$. Apply the definition of convergence with $epsilon = 1$. There exists $N in NN$ such that $abs(a_n - L) < 1$ whenever $n >= N$.
@@ -286,7 +345,13 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
 
   Scalar multiplication is immediate if $lambda = 0$. If $lambda != 0$, choose $N$ such that $abs(a_n - a) < epsilon / abs(lambda)$ for $n >= N$.
 
-  For products, write
+  For products, write#footnote[
+    This is the standard "add zero" trick: insert a term and subtract it again so the expression splits into pieces we already know how to control. Here
+    $
+      a_n b_n - a b = a_n b_n - a_n b + a_n b - a b.
+    $
+    This kind of rearrangement appears constantly in analysis.
+  ]
   $
     a_n b_n - a b = a_n(b_n - b) + b(a_n - a).
   $
@@ -346,6 +411,57 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
 
 #theorem("Squeeze theorem")[
   Suppose $a_n <= b_n <= c_n$ for all sufficiently large $n$. If $a_n -> L$ and $c_n -> L$, then $b_n -> L$.
+]<thm:squeeze>
+
+#diagram(caption: [
+  Illustration of the squeeze theorem. The sequence $(b_n)$ is trapped between $(a_n)$ and $(c_n)$, and both bounding sequences converge to $L$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let blue = rgb("#2563eb")
+      let green = rgb("#65a30d")
+      let black-stroke = 0.85pt + black
+      let dot-r = 0.065
+      let ox = 0.7
+      let oy = 0.45
+      let step = 0.68
+
+      let a = ((1, 0.75), (2, 0.85), (3, 1.00), (4, 1.12), (5, 1.18), (6, 1.22), (7, 1.32), (8, 1.48))
+      let b = ((1, 2.12), (2, 2.32), (3, 1.70), (4, 1.95), (5, 1.50), (6, 1.95), (7, 1.85), (8, 1.78))
+      let c = ((1, 3.05), (2, 2.82), (3, 2.62), (4, 2.45), (5, 2.30), (6, 2.22), (7, 2.12), (8, 1.98))
+
+      let pt(pair) = {
+        (ox + (pair.at(0) - 1) * step, oy + pair.at(1))
+      }
+
+      draw.line((ox - 0.35, oy), (ox + 8 * step, oy), stroke: black-stroke, mark: (end: ">"))
+      draw.line((ox - 0.35, oy), (ox - 0.35, oy + 3.75), stroke: black-stroke, mark: (end: ">"))
+
+      for i in range(0, 8) {
+        let x = ox + i * step
+        draw.line((x, oy - 0.10), (x, oy + 0.10), stroke: 0.6pt + black)
+        draw.content((x, oy - 0.35), text(size: 8pt)[$#(i + 1)$])
+      }
+
+      for seq in (a, b, c) {
+        for i in range(0, seq.len() - 1) {
+          draw.line(pt(seq.at(i)), pt(seq.at(i + 1)), stroke: 0.75pt + black)
+        }
+      }
+
+      for p in a { draw.circle(pt(p), radius: dot-r, fill: blue, stroke: none) }
+      for p in c { draw.circle(pt(p), radius: dot-r, fill: blue, stroke: none) }
+      for p in b { draw.circle(pt(p), radius: dot-r, fill: green, stroke: none) }
+
+      let l-y = oy + 1.78
+      draw.line((ox + 7 * step, l-y), (ox + 8.3 * step, l-y), stroke: (paint: black, dash: "dashed", thickness: 0.75pt))
+      draw.content((ox + 8.55 * step, l-y), text(size: 11pt)[$L$])
+      draw.content((ox - 0.70, oy + 3.05), text(size: 10pt)[$c_n$])
+      draw.content((ox - 0.70, oy + 2.10), text(size: 10pt)[$b_n$])
+      draw.content((ox - 0.70, oy + 0.75), text(size: 10pt)[$a_n$])
+      draw.content((ox + 8.35 * step, oy - 0.05), text(size: 10pt)[$n$])
+    })
+  ]
 ]
 
 #proof[
@@ -376,7 +492,7 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
   $
     0 <= (n - 1) / (n^4 + 2) <= n / n^4 = 1 / n^3.
   $
-  Since $1 / n^3 -> 0$, the squeeze theorem gives
+  Since $1 / n^3 -> 0$, the #link(<thm:squeeze>)[squeeze theorem] gives
   $
     lim_(n -> infinity) (n - 1) / (n^4 + 2) = 0.
   $
@@ -402,14 +518,14 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
 
 #proposition[
   If $a_n -> 0$ and $(b_n)$ is bounded, then $a_n b_n -> 0$.
-]
+]<prop:bounded-times-null>
 
 #proof[
   Since $(b_n)$ is bounded, choose $C > 0$ such that $abs(b_n) <= C$ for all $n$. Then
   $
     abs(a_n b_n) <= C abs(a_n).
   $
-  Since $C abs(a_n) -> 0$, the squeeze theorem gives $a_n b_n -> 0$.
+  Since $C abs(a_n) -> 0$, the #link(<thm:squeeze>)[squeeze theorem] gives $a_n b_n -> 0$.
 ]
 
 == Divergence
@@ -459,5 +575,5 @@ The following limits are used often. Some are proved later using monotonicity, e
   $
     2^(-n) = (1 / 2)^n -> 0.
   $
-  Therefore $cos^2(n) / 2^n -> 0$ by the bounded-times-null result, because $0 <= cos^2(n) <= 1$.
+  Therefore $cos^2(n) / 2^n -> 0$ by the #link(<prop:bounded-times-null>)[bounded-times-null result], because $0 <= cos^2(n) <= 1$.
 ]

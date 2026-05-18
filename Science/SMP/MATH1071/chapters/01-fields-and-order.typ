@@ -58,10 +58,7 @@ We also use the following functions repeatedly.
 #definition("Absolute value, floor, and square root")[
   For $x in RR$,
   $
-    abs(x) = cases(
-      x, & x >= 0,
-      -x, & x < 0.
-    )
+    abs(x) = cases(x & "if " x >= 0, -x & "if " x < 0)
   $
 
   The *floor* $floor(x)$ is the greatest integer less than or equal to $x$.
@@ -176,7 +173,7 @@ The following facts are normally used without comment in high-school algebra. In
 
 == Examples of Fields and Non-Fields
 
-#example("$QQ(sqrt(2))$")[
+#example[$QQ(sqrt(2))$][
   Define
   $
     QQ(sqrt(2)) = {a + b sqrt(2): a, b in QQ}.
@@ -311,6 +308,35 @@ Absolute value converts order into distance. Most epsilon arguments in the cours
   4. $abs(abs(x) - abs(y)) <= abs(x - y)$.
 ]
 
+#diagram(caption: [
+  Visual representation of the triangle inequality. The direct path $abs(a + b)$ cannot be longer than travelling along $abs(a)$ and then $abs(b)$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let blue = rgb("#2563eb")
+      let green = rgb("#65a30d")
+      let red = rgb("#dc2626")
+      let sw = 1.0pt
+      let p = (2.0, 0.0)
+      let q = (4.9, 0.0)
+      let r = (2.7, 2.0)
+
+      draw.line(r, p, stroke: sw + green, mark: (end: ">"))
+      draw.line(p, q, stroke: sw + green, mark: (end: ">"))
+      draw.line(r, q, stroke: sw + red, mark: (end: ">"))
+
+      for v in (p, q, r) {
+        draw.circle(v, radius: 0.07, fill: blue, stroke: none)
+      }
+
+      draw.content((2.15, 1.05), text(size: 11pt, weight: "bold")[$a$])
+      draw.content((3.45, -0.32), text(size: 11pt, weight: "bold")[$b$])
+      draw.content((4.25, 1.20), text(size: 11pt, weight: "bold")[$a + b$])
+      draw.content((3.55, -0.95), text(size: 12pt)[$abs(a + b) <= abs(a) + abs(b)$])
+    })
+  ]
+]
+
 #proof[
   The first two statements follow by checking the cases $x >= 0$ and $x < 0$.
 
@@ -357,6 +383,33 @@ Absolute value converts order into distance. Most epsilon arguments in the cours
   In words: $x$ is within distance $epsilon$ of $a$. This is the language of sequence limits and function limits.
 ]
 
+#diagram(caption: [
+  The inequality $abs(x - a) < epsilon$ describes the open interval centred at $a$ with radius $epsilon$.
+])[
+  #align(center)[
+    #canvas(length: 1cm, {
+      let axis = 0.75pt + luma(80)
+      let accent = rgb("#0f766e")
+      let weak = 0.55pt + luma(150)
+
+      draw.line((0, 0), (8, 0), stroke: axis)
+      draw.line((1.4, -0.14), (1.4, 0.14), stroke: weak)
+      draw.line((4.0, -0.20), (4.0, 0.20), stroke: 0.8pt + accent)
+      draw.line((6.6, -0.14), (6.6, 0.14), stroke: weak)
+      draw.line((1.4, 0), (6.6, 0), stroke: 2pt + accent)
+
+      draw.circle((1.4, 0), radius: 0.08, fill: white, stroke: 0.7pt + accent)
+      draw.circle((6.6, 0), radius: 0.08, fill: white, stroke: 0.7pt + accent)
+      draw.circle((4.0, 0), radius: 0.07, fill: accent, stroke: none)
+
+      draw.content((1.4, -0.45), text(size: 8.5pt)[$a - epsilon$])
+      draw.content((4.0, -0.45), text(size: 8.5pt)[$a$])
+      draw.content((6.6, -0.45), text(size: 8.5pt)[$a + epsilon$])
+      draw.content((4.0, 0.45), text(size: 8.5pt)[$abs(x - a) < epsilon$])
+    })
+  ]
+]
+
 == The Archimedean Property
 
 The ordered-field axioms alone do not capture everything special about $RR$. One extra fact used constantly is that the natural numbers are not bounded above inside $RR$.
@@ -365,7 +418,7 @@ The ordered-field axioms alone do not capture everything special about $RR$. One
   An ordered field $F$ has the *Archimedean property* if for every $x in F$, there exists $n in NN$ such that $n > x$.
 ]
 
-#theorem("Archimedean consequences in $RR$")[
+#theorem[Archimedean consequences in $RR$][
   In $RR$:
   1. If $x, y in RR$ and $x > 0$, then there exists $n in NN$ such that $n x > y$.
   2. If $w > 0$, then there exists $n in NN$ such that $0 < 1 / n < w$.
