@@ -104,6 +104,67 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   Using #link(<thm:det-laws>)[the determinant laws], this gives $(op("det") Q)^2 = 1$.
 ]
 
+#proposition("Orthogonal matrices preserve dot products")[
+  If $Q$ is orthogonal, then
+  $
+    (Q x) dot (Q y) = x dot y
+  $
+  for all $x, y in RR^n$. Hence orthogonal matrices preserve lengths and angles.
+]
+
+#proof[
+  Since $Q^T Q = I$,
+  $
+    (Q x) dot (Q y) = x^T Q^T Q y = x^T y = x dot y.
+  $
+]
+
+#definition("Trace")[
+  The *trace* of a square matrix is the sum of its diagonal entries:
+  $
+    op("tr")(A) = a_(1 1) + dots + a_(n n).
+  $
+]
+
+#definition("Symmetric and skew-symmetric matrices")[
+  A square matrix $A$ is *symmetric* if $A^T = A$, and *skew-symmetric* if $A^T = -A$.
+]
+
+#proposition("Useful transpose facts")[
+  For any square matrix $A$:
+  - $A + A^T$ is symmetric;
+  - if $A$ is skew-symmetric, then $op("tr")(A) = 0$;
+  - if $A$ is skew-symmetric and has odd size, then $op("det") A = 0$.
+]
+
+#proof[
+  First,
+  $
+    (A + A^T)^T = A^T + A = A + A^T.
+  $
+  If $A$ is skew-symmetric, then every diagonal entry satisfies $a_(i i) = -a_(i i)$, so $a_(i i) = 0$ and $op("tr")(A) = 0$. If $A$ is $n times n$ and $n$ is odd, then
+  $
+    op("det") A = op("det")(A^T) = op("det")(-A) = (-1)^n op("det") A = -op("det") A,
+  $
+  so $op("det") A = 0$.
+]
+
+#definition("Nilpotent matrix")[
+  A square matrix $A$ is *nilpotent* if $A^k = 0$ for some $k in NN$.
+]
+
+#proposition("Nilpotent matrices are singular")[
+  If $A$ is nilpotent, then $op("det") A = 0$.
+]
+
+#proof[
+  If $A^k = 0$, then
+  $
+    (op("det") A)^k = op("det")(A^k) = op("det") 0 = 0.
+  $
+  Hence $op("det") A = 0$.
+]
+
 == Characteristic Polynomials
 
 #definition("Eigenvalue and eigenvector")[
@@ -240,6 +301,22 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
     c_1(lambda_1 - lambda_2)v_1 = 0.
   $
   Since $v_1 != 0$ and $lambda_1 != lambda_2$, $c_1 = 0$. Then $c_2 = 0$.
+]
+
+#proposition("Positive quadratic forms and eigenvalues")[
+  Let $A$ be a symmetric $2 times 2$ matrix. If
+  $
+    x^T A x > 0
+  $
+  for every non-zero $x in RR^2$, then every eigenvalue of $A$ is positive.
+]
+
+#proof[
+  If $A v = lambda v$ with $v != 0$, then
+  $
+    v^T A v = v^T(lambda v) = lambda (v^T v) = lambda norm(v)^2.
+  $
+  The left-hand side is positive and $norm(v)^2 > 0$, so $lambda > 0$.
 ]
 
 #pagebreak()

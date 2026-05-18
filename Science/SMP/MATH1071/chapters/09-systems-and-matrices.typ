@@ -4,6 +4,162 @@
 
 Linear algebra begins with the problem of solving several linear equations at once. The main point of matrix notation is that the same row operations solve the system, describe the set of solutions, and later decide invertibility.
 
+== Euclidean Vectors
+
+#definition("Dot product and norm")[
+  For vectors $u = mat(u_1; dots; u_n)$ and $v = mat(v_1; dots; v_n)$ in $RR^n$, the *dot product* is
+  $
+    u dot v = sum_(i=1)^n u_i v_i.
+  $
+  The *norm* or *length* of $u$ is
+  $
+    norm(u) = sqrt(u dot u).
+  $
+]
+
+#definition("Orthogonality and angle")[
+  Two vectors $u$ and $v$ are *orthogonal* if $u dot v = 0$. If $u$ and $v$ are non-zero, the angle $theta$ between them is determined by
+  $
+    cos theta = (u dot v) / (norm(u) norm(v)).
+  $
+]
+
+#theorem("Cauchy-Schwarz inequality")[
+  For all $u, v in RR^n$,
+  $
+    abs(u dot v) <= norm(u) norm(v).
+  $
+]<thm:cauchy-schwarz>
+
+#theorem("Vector triangle inequality")[
+  For all $u, v in RR^n$,
+  $
+    norm(u + v) <= norm(u) + norm(v).
+  $
+]<thm:vector-triangle>
+
+#proof[
+  Squaring the left-hand side gives
+  $
+    norm(u + v)^2
+      = norm(u)^2 + 2 u dot v + norm(v)^2.
+  $
+  By #link(<thm:cauchy-schwarz>)[Cauchy-Schwarz],
+  $
+    2 u dot v <= 2 abs(u dot v) <= 2 norm(u) norm(v).
+  $
+  Hence
+  $
+    norm(u + v)^2 <= (norm(u) + norm(v))^2.
+  $
+  Both sides are non-negative, so taking square roots proves the result.
+]
+
+#proposition("Parallelogram law")[
+  For all $u, v in RR^n$,
+  $
+    norm(u + v)^2 + norm(u - v)^2 = 2 norm(u)^2 + 2 norm(v)^2.
+  $
+]
+
+#proof[
+  Expand both squared norms using the dot product:
+  $
+    norm(u + v)^2 = norm(u)^2 + 2u dot v + norm(v)^2,
+  $
+  $
+    norm(u - v)^2 = norm(u)^2 - 2u dot v + norm(v)^2.
+  $
+  Adding cancels the dot-product terms.
+]
+
+#definition("Projection")[
+  If $a != 0$, the projection of $b$ onto $a$ is
+  $
+    op("proj")_a b = (b dot a) / (a dot a) a.
+  $
+  The component of $b$ orthogonal to $a$ is
+  $
+    op("orth")_a b = b - op("proj")_a b.
+  $
+]
+
+#proposition("Projection residual is orthogonal")[
+  If $a != 0$, then $op("orth")_a b$ is orthogonal to $a$.
+]
+
+#proof[
+  Compute
+  $
+    a dot (b - op("proj")_a b)
+      = a dot b - a dot ((b dot a) / (a dot a) a)
+      = a dot b - (b dot a) = 0.
+  $
+]
+
+#definition("Cross product in three dimensions")[
+  For $u = mat(u_1; u_2; u_3)$ and $v = mat(v_1; v_2; v_3)$, the *cross product* is
+  $
+    u times v
+      = mat(
+        u_2 v_3 - u_3 v_2;
+        u_3 v_1 - u_1 v_3;
+        u_1 v_2 - u_2 v_1
+      ).
+  $
+  It is orthogonal to both $u$ and $v$.
+]
+
+#example[
+  Let
+  $
+    A = mat(1; 2; 3),
+    quad
+    B = mat(7; 2; 1),
+    quad
+    C = mat(1; 3; 3).
+  $
+  Then
+  $
+    B - A = mat(6; 0; -2),
+    quad
+    C - A = mat(0; 1; 0).
+  $
+  Since $(B - A) dot (C - A) = 0$, the angle at $A$ is $pi / 2$.
+]
+
+#example[
+  A vector orthogonal to the plane through $A$, $B$, and $C$ is
+  $
+    (B - A) times (C - A)
+      = mat(6; 0; -2) times mat(0; 1; 0)
+      = mat(2; 0; 6).
+  $
+  The length of the projection of $B - A$ onto $C - A$ is
+  $
+    abs((B - A) dot (C - A)) / norm(C - A) = 0.
+  $
+]
+
+#example[
+  Since
+  $
+    C - B = mat(-6; 1; 2),
+  $
+  a unit vector parallel to $C - B$ is
+  $
+    1 / sqrt(41) mat(-6; 1; 2).
+  $
+  A vector orthogonal to both $C - B$ and the $z$-axis is
+  $
+    mat(-6; 1; 2) times mat(0; 0; 1) = mat(1; 6; 0),
+  $
+  so a unit vector with this property is
+  $
+    1 / sqrt(37) mat(1; 6; 0).
+  $
+]
+
 == Linear Systems
 
 #definition("Linear equation")[

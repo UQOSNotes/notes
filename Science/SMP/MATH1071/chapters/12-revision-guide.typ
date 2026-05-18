@@ -154,6 +154,8 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   $
 ]
 
+#pagebreak()
+
 #example[
   To decide
   $
@@ -175,12 +177,17 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
 
 #note[
   For systems and matrices:
+  - use dot products for angles, orthogonality, and projection lengths;
+  - use a cross product in $RR^3$ to find a normal vector to a plane;
   - row-reduce augmented matrices for solution sets;
   - row-reduce $[A | I]$ for inverses;
   - use $det A != 0$ for invertibility;
+  - use $Q^T Q = I$ for orthogonal matrices;
+  - use transpose identities for symmetric and skew-symmetric matrices;
   - use $det(A - lambda I) = 0$ for eigenvalues;
   - use $(A - lambda I)v = 0$ for eigenvectors;
-  - use closure under linear combinations for subspaces.
+  - use closure under linear combinations for subspaces;
+  - test linear maps by checking additivity and homogeneity.
 ]
 
 #example[
@@ -195,6 +202,8 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   $
   Thus $lambda = 5, 3, 1$. Then solve $(A - lambda I)v = 0$ separately for each eigenvalue.
 ]
+
+#pagebreak()
 
 #example[
   Let

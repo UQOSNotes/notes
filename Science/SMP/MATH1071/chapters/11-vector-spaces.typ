@@ -327,3 +327,49 @@ Vector spaces are the common language behind vectors in $RR^n$, matrices, polyno
     (A + B)^2 = mat(1, 0; 0, 1) != 0.
   $
 ]
+
+== Linear Maps
+
+#definition("Linear map")[
+  A function $T: V -> W$ between vector spaces is *linear* if
+  $
+    T(c u + d v) = c T(u) + d T(v)
+  $
+  for all $u, v in V$ and $c, d in RR$.
+]
+
+#note[
+  To prove a map is linear, it is enough to check additivity $T(u + v) = T(u) + T(v)$ and homogeneity $T(c u) = c T(u)$. To disprove linearity, find one counterexample to either rule.
+]
+
+#example[
+  Define $T: M_(2 times 2)(RR) -> M_(2 times 2)(RR)$ by
+  $
+    T(A) = 3A^T + op("tr")(A) mat(0, -1; 1, 0).
+  $
+  This map is linear because transpose and trace are linear:
+  $
+    T(c A + d B)
+      = 3(c A + d B)^T + op("tr")(c A + d B) mat(0, -1; 1, 0)
+      = c T(A) + d T(B).
+  $
+]
+
+#definition("Eigenvector of a linear map")[
+  If $T: V -> V$ is linear, a non-zero vector $v in V$ is an *eigenvector* of $T$ with eigenvalue $lambda$ if
+  $
+    T(v) = lambda v.
+  $
+]
+
+#example[
+  For the map above,
+  $
+    T(mat(1, 0; 0, -1)) = 3 mat(1, 0; 0, -1),
+  $
+  so $mat(1, 0; 0, -1)$ is an eigenvector with eigenvalue $3$. But
+  $
+    T(I) = 3I + 2 mat(0, -1; 1, 0),
+  $
+  which is not a scalar multiple of $I$, so $I$ is not an eigenvector.
+]
