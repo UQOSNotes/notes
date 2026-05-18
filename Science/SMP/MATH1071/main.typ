@@ -2,9 +2,10 @@
 
 #show: notes.with(
   course: "MATH1071",
-  title: "Advanced Calculus and Linear Algebra",
+  title: "Advanced Calculus and Linear Algebra I",
   year: "Semester 1, 2026",
   authors: ("April Kidd",),
+  preface: [WIP]
 )
 
 #include "chapters/01-fields-and-order.typ"
