@@ -392,6 +392,29 @@ convergence means that every epsilon neighbourhood of $L$ eventually contains th
   $
 ]
 
+#proposition("Useful permanence facts")[
+  Let $a_n -> a$.
+  - $abs(a_n) -> abs(a)$.
+  - If $a >= 0$ and $a_n >= 0$ eventually, then $sqrt(a_n) -> sqrt(a)$.
+  - If $b_n$ is bounded and $a_n -> 0$, then $a_n b_n -> 0$.
+  - If $c_n >= 0$, $c_n -> 0$, and $abs(b_n - L) <= c_n$ eventually, then $b_n -> L$.
+]
+
+#proof[
+  The first statement follows from the reverse triangle inequality,
+  $
+    abs(abs(a_n) - abs(a)) <= abs(a_n - a).
+  $
+  For square roots, if $a > 0$ then
+  $
+    abs(sqrt(a_n) - sqrt(a)) = abs(a_n - a) / (sqrt(a_n) + sqrt(a)),
+  $
+  and the denominator is eventually bounded below by $sqrt(a) / 2$. If $a = 0$, then $abs(sqrt(a_n) - 0) = sqrt(a_n)$ and $a_n -> 0$.
+  Given $epsilon > 0$, eventually $0 <= a_n < epsilon^2$, so $sqrt(a_n) < epsilon$.
+
+  If $abs(b_n) <= M$, then $abs(a_n b_n) <= M abs(a_n) -> 0$. The final statement is exactly the squeeze theorem applied to $-c_n <= b_n - L <= c_n$.
+]
+
 #proposition("Polynomial quotients")[
   If $b_k != 0$, then
   $

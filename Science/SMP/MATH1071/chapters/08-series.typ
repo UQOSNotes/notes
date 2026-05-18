@@ -346,6 +346,22 @@ A series is an infinite sum, but convergence is still a statement about sequence
   $
 ]
 
+#corollary("Absolute convergence estimates")[
+  If $sum abs(a_n)$ converges, then
+  $
+    abs(sum_(n=1)^infinity a_n) <= sum_(n=1)^infinity abs(a_n).
+  $
+  If $(b_n)$ is bounded, then $sum a_n b_n$ also converges absolutely.
+]
+
+#proof[
+  The first inequality follows by applying the finite triangle inequality to the partial sums and taking limits. If $abs(b_n) <= M$, then
+  $
+    sum abs(a_n b_n) <= M sum abs(a_n),
+  $
+  so $sum a_n b_n$ converges by comparison.
+]
+
 #example[
   The series
   $
@@ -353,6 +369,8 @@ A series is an infinite sum, but convergence is still a statement about sequence
   $
   converges by the alternating series test, but it does not converge absolutely because $sum 1 / n^(1 / 4)$ diverges. Hence it converges conditionally.
 ]
+
+#pagebreak()
 
 #example[
   The series

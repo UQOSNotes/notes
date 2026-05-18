@@ -372,6 +372,53 @@ Differentiation measures the best linear approximation to a function at a point.
   The sign of $f'(c)$ determines the sign of $f(y) - f(x)$.
 ]
 
+#corollary("Bounded derivative gives uniform continuity")[
+  If $f: I -> RR$ is differentiable on an interval $I$ and there is $M >= 0$ such that
+  $
+    abs(f'(x)) <= M
+  $
+  for all $x in I$, then $f$ is uniformly continuous on $I$.
+]
+
+#proof[
+  For $x, y in I$, the #link(<thm:mean-value>)[mean value theorem] gives some $c$ between $x$ and $y$ such that
+  $
+    abs(f(x) - f(y)) = abs(f'(c)) abs(x - y) <= M abs(x - y).
+  $
+  Choose $delta = epsilon / M$ if $M > 0$, and any $delta > 0$ if $M = 0$.
+]
+
+#example[
+  Since $abs(cos x) <= 1$ for all $x$,
+  $
+    abs(sin x - sin y) <= abs(x - y)
+  $
+  for all $x, y in RR$ by the previous corollary.
+]
+
+#example[
+  The function $log x$ is uniformly continuous on $[1, infinity)$ because
+  $
+    abs((log x)') = 1 / x <= 1
+  $
+  on that interval.
+]
+
+#theorem("Cauchy mean value theorem")[
+  Let $f, g: [a, b] -> RR$ be continuous on $[a, b]$ and differentiable on $(a, b)$. Then there exists $c in (a, b)$ such that
+  $
+    f'(c)(g(b) - g(a)) = g'(c)(f(b) - f(a)).
+  $
+]
+
+#proof[
+  Apply #link(<thm:rolle>)[Rolle's theorem] to
+  $
+    F(x) = (f(x) - f(a))(g(b) - g(a)) - (g(x) - g(a))(f(b) - f(a)).
+  $
+  We have $F(a) = F(b) = 0$, so some $c in (a, b)$ satisfies $F'(c) = 0$, which is exactly the claimed identity.
+]
+
 == Holder Continuity
 
 #definition("Holder continuity")[

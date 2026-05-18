@@ -73,6 +73,18 @@ Linear algebra begins with the problem of solving several linear equations at on
   Adding cancels the dot-product terms.
 ]
 
+#corollary("Equal lengths from orthogonal diagonals")[
+  If $u + v$ and $u - v$ are orthogonal, then $norm(u) = norm(v)$.
+]
+
+#proof[
+  Orthogonality gives
+  $
+    0 = (u + v) dot (u - v) = norm(u)^2 - norm(v)^2.
+  $
+  Hence $norm(u)^2 = norm(v)^2$, and norms are non-negative.
+]
+
 #definition("Projection")[
   If $a != 0$, the projection of $b$ onto $a$ is
   $
@@ -389,6 +401,55 @@ Linear algebra begins with the problem of solving several linear equations at on
     E D = mat(a x, b y; c x, d y).
   $
   These are equal for every $E$ exactly when $x = y$. Otherwise $D$ commutes only with matrices satisfying $(x - y)b = 0$ and $(y - x)c = 0$.
+]
+
+== Matrix Transformations
+
+#definition("Standard basis")[
+  The *standard basis* of $RR^n$ is $e_1, dots, e_n$, where $e_j$ has a $1$ in the $j$-th position and $0$ elsewhere.
+]
+
+#definition("Matrix transformation")[
+  If $A$ is an $m times n$ matrix, it defines a function
+  $
+    T_A: RR^n -> RR^m,
+    quad
+    T_A(x) = A x.
+  $
+  This function is linear:
+  $
+    T_A(c x + d y) = c T_A(x) + d T_A(y).
+  $
+]
+
+#proposition("Matrices represent linear transformations")[
+  If $T: RR^n -> RR^m$ is linear, then
+  $
+    T(x) = A x
+  $
+  where the columns of $A$ are $T(e_1), dots, T(e_n)$.
+]
+
+#proof[
+  Write $x = x_1 e_1 + dots + x_n e_n$. By linearity,
+  $
+    T(x) = x_1 T(e_1) + dots + x_n T(e_n),
+  $
+  which is exactly the matrix product $A x$ when the columns of $A$ are $T(e_1), dots, T(e_n)$.
+]
+
+#proposition("Composition corresponds to multiplication")[
+  If $A$ is $m times n$ and $B$ is $n times p$, then
+  $
+    T_A compose T_B = T_(A B).
+  $
+]
+
+#proof[
+  For $x in RR^p$,
+  $
+    (T_A compose T_B)(x) = T_A(B x) = A(B x) = (A B)x.
+  $
 ]
 
 #pagebreak()

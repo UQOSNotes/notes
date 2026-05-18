@@ -104,6 +104,17 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   Using #link(<thm:det-laws>)[the determinant laws], this gives $(op("det") Q)^2 = 1$.
 ]
 
+#proposition("Products of orthogonal matrices")[
+  If $X$ and $Y$ are orthogonal matrices of the same size, then $X Y$ is orthogonal.
+]
+
+#proof[
+  Since $X^(-1) = X^T$ and $Y^(-1) = Y^T$,
+  $
+    (X Y)^(-1) = Y^(-1) X^(-1) = Y^T X^T = (X Y)^T.
+  $
+]
+
 #proposition("Orthogonal matrices preserve dot products")[
   If $Q$ is orthogonal, then
   $
@@ -163,6 +174,30 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
     (op("det") A)^k = op("det")(A^k) = op("det") 0 = 0.
   $
   Hence $op("det") A = 0$.
+]
+
+#proposition("Vandermonde determinant")[
+  For
+  $
+    V_n = mat(
+      1, x_1, x_1^2, dots, x_1^(n - 1);
+      1, x_2, x_2^2, dots, x_2^(n - 1);
+      dots, dots, dots, dots, dots;
+      1, x_n, x_n^2, dots, x_n^(n - 1)
+    ),
+  $
+  we have
+  $
+    op("det") V_n = product_(1 <= i < j <= n) (x_j - x_i).
+  $
+]
+
+#proof[
+  The determinant is a polynomial in $x_n$ of degree at most $n - 1$. If $x_n = x_i$ for some $i < n$, then two rows are equal, so the determinant is $0$. Hence
+  $
+    product_(i=1)^(n - 1) (x_n - x_i)
+  $
+  divides $op("det") V_n$ as a polynomial in $x_n$. Comparing the coefficient of $x_n^(n - 1)$ gives the determinant of $V_(n - 1)$. Induction gives the formula.
 ]
 
 == Characteristic Polynomials
@@ -281,6 +316,20 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
     v = A^(-1) A v = A^(-1) lambda v,
   $
   so $A^(-1)v = lambda^(-1)v$.
+]
+
+#proposition("Transpose has the same eigenvalues")[
+  A square matrix $A$ and its transpose $A^T$ have the same eigenvalues.
+]
+
+#proof[
+  Their characteristic polynomials are equal:
+  $
+    op("det")(A^T - lambda I)
+      = op("det")((A - lambda I)^T)
+      = op("det")(A - lambda I).
+  $
+  Hence they have the same roots.
 ]
 
 #proposition("Eigenvectors for distinct eigenvalues")[

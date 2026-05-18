@@ -16,6 +16,7 @@ This chapter is for the final pass before an exam. It does not replace the earli
   - intermediate value theorem,
   - extreme value theorem,
   - Rolle's theorem and the mean value theorem,
+  - Cauchy mean value theorem,
   - fundamental theorem of calculus,
   - comparison criterion for series.
 ]
@@ -179,11 +180,13 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   For systems and matrices:
   - use dot products for angles, orthogonality, and projection lengths;
   - use a cross product in $RR^3$ to find a normal vector to a plane;
+  - use columns $T(e_1), dots, T(e_n)$ to build the matrix of a linear transformation;
   - row-reduce augmented matrices for solution sets;
   - row-reduce $[A | I]$ for inverses;
   - use $det A != 0$ for invertibility;
   - use $Q^T Q = I$ for orthogonal matrices;
   - use transpose identities for symmetric and skew-symmetric matrices;
+  - remember that $A$ and $A^T$ have the same characteristic polynomial;
   - use $det(A - lambda I) = 0$ for eigenvalues;
   - use $(A - lambda I)v = 0$ for eigenvectors;
   - use closure under linear combinations for subspaces;
