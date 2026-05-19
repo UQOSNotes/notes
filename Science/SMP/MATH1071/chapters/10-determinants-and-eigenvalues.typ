@@ -7,7 +7,9 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 == Determinants
 
 #definition("Determinant")[
-  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. For
+  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. For matrices larger than $2 times 2$, we compute it using the row-operation rules below together with $op("det") I = 1$.
+
+  For
   $
     A = mat(a, b; c, d),
   $
