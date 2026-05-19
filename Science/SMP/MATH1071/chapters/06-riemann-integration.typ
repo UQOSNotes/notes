@@ -178,7 +178,7 @@ The Riemann integral makes the idea of signed area precise by trapping a functio
   $
     0 <= overline(integral)_a^b f - underline(integral)_a^b f <= U(f, P) - L(f, P)
   $
-  can be made smaller than every $epsilon > 0$. Hence the upper and lower integrals are equal.#footnote[This criterion is often called Darboux's criterion in analysis texts, because it is phrased using upper and lower sums.]
+  can be made smaller than every $epsilon > 0$. Hence the upper and lower integrals are equal. #footnote[This criterion is often called Darboux's criterion in analysis texts, because it is phrased using upper and lower sums.]
 ]
 
 #example[

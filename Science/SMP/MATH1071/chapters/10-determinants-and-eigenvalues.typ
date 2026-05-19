@@ -26,6 +26,10 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   - Adding a multiple of one row to another row does not change the determinant.
 ]
 
+#note[
+  These rules are the computational backbone of determinants in this course. A full construction of the determinant for arbitrary size is possible, but most problems here only need these row-operation rules, triangular matrices, and the determinant laws below.
+]
+
 #proposition("Triangular determinant")[
   If $A$ is upper triangular or lower triangular, then $op("det") A$ is the product of the diagonal entries.
 ]<prop:triangular-det>

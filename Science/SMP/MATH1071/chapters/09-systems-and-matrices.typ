@@ -407,7 +407,11 @@ Linear algebra begins with the problem of solving several linear equations at on
   These are equal for every $E$ exactly when $x = y$. Otherwise $D$ commutes only with matrices satisfying $(x - y)b = 0$ and $(y - x)c = 0$.
 ]
 
+#pagebreak()
+
 == Matrix Transformations
+
+Matrices and linear transformations are two ways of describing the same finite-dimensional behaviour. In this course we mostly use the standard bases of $RR^n$ and $RR^m$, so a linear map can be recorded by the matrix whose columns are its outputs on the standard basis vectors.
 
 #definition("Standard basis")[
   The *standard basis* of $RR^n$ is $e_1, dots, e_n$, where $e_j$ has a $1$ in the $j$-th position and $0$ elsewhere.
@@ -440,6 +444,10 @@ Linear algebra begins with the problem of solving several linear equations at on
     T(x) = x_1 T(e_1) + dots + x_n T(e_n),
   $
   which is exactly the matrix product $A x$ when the columns of $A$ are $T(e_1), dots, T(e_n)$.
+]
+
+#note[
+  For a general finite-dimensional vector space, one first chooses a basis and then records coordinates relative to that basis. The standard-basis case above is the version needed for $RR^n$.
 ]
 
 #proposition("Composition corresponds to multiplication")[

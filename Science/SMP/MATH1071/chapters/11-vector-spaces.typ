@@ -330,6 +330,8 @@ Vector spaces are the common language behind vectors in $RR^n$, matrices, polyno
 
 == Linear Maps
 
+Chapter 9 described linear maps $RR^n -> RR^m$ using matrices in the standard basis. The same definition works for any vector spaces; matrices are what appear after bases have been chosen.
+
 #definition("Linear map")[
   A function $T: V -> W$ between vector spaces is *linear* if
   $

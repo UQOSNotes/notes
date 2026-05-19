@@ -25,21 +25,34 @@ Differentiation measures the best linear approximation to a function at a point.
     #canvas(length: 1cm, {
       let blue = rgb("#2563eb")
       let green = rgb("#65a30d")
+      let grey = rgb("#94a3b8")
       draw.line((0.5, 0.5), (7.0, 0.5), stroke: 0.75pt + black, mark: (end: ">"))
       draw.line((0.7, 0.25), (0.7, 4.0), stroke: 0.75pt + black, mark: (end: ">"))
 
       let f(x) = { 0.12 * (x - 3.2) * (x - 3.2) + 1.25 + 0.45 * (x - 2.0) }
+      let fp(x) = { 0.24 * (x - 3.2) + 0.45 }
       let pts = ()
       for i in range(0, 80) {
         let x = 1.0 + i * 0.065
         pts.push((x, f(x)))
       }
       draw.line(..pts, stroke: 1pt + black)
+
       let c = 3.1
-      let x = 5.0
+      let tangent(x) = { f(c) + fp(c) * (x - c) }
+      draw.line((1.65, tangent(1.65)), (6.25, tangent(6.25)), stroke: 0.8pt + blue)
+
+      for pair in ((5.55, grey, 0.55pt), (4.65, grey, 0.7pt), (3.85, green, 1pt)) {
+        let x = pair.at(0)
+        let colour = pair.at(1)
+        let width = pair.at(2)
+        let m = (f(x) - f(c)) / (x - c)
+        let sec(x_0) = { f(c) + m * (x_0 - c) }
+        draw.line((1.75, sec(1.75)), (6.2, sec(6.2)), stroke: width + colour)
+        draw.circle((x, f(x)), radius: 0.045, fill: colour, stroke: none)
+      }
+
       draw.circle((c, f(c)), radius: 0.065, fill: blue, stroke: none)
-      draw.circle((x, f(x)), radius: 0.065, fill: blue, stroke: none)
-      draw.line((2.1, f(c) - 0.15 * (c - 2.1)), (5.9, f(c) + 0.15 * (5.9 - c)), stroke: 1pt + green)
       draw.line((c, 0.5), (c, f(c)), stroke: 0.6pt + blue)
       draw.content((c, 0.18), text(size: 8.5pt)[$c$])
       draw.content((5.35, 3.0), text(size: 8.5pt, fill: green)[secant slope $-> f'(c)$])
@@ -335,13 +348,28 @@ Differentiation measures the best linear approximation to a function at a point.
       let green = rgb("#65a30d")
       draw.line((0.5, 0.5), (7.0, 0.5), stroke: 0.75pt + black, mark: (end: ">"))
       draw.line((0.7, 0.25), (0.7, 4.0), stroke: 0.75pt + black, mark: (end: ">"))
-      let pts = ((1.1, 1.0), (1.8, 1.35), (2.6, 1.8), (3.4, 2.08), (4.3, 2.38), (5.3, 2.9), (6.1, 3.3))
+
+      let f(x) = { 0.08 * (x - 3.6) * (x - 3.6) + 0.37 * x + 0.75 }
+      let a = 1.1
+      let b = 6.1
+      let c = 3.6
+      let m = (f(b) - f(a)) / (b - a)
+      let tangent(x) = { f(c) + m * (x - c) }
+      let pts = ()
+      for i in range(0, 90) {
+        let x = 1.0 + i * 0.058
+        pts.push((x, f(x)))
+      }
       draw.line(..pts, stroke: 1pt + black)
-      draw.line((1.1, 1.0), (6.1, 3.3), stroke: 1pt + green)
-      draw.line((2.4, 1.62), (4.6, 2.63), stroke: 1pt + blue)
-      draw.content((1.1, 0.18), text(size: 8.5pt)[$a$])
-      draw.content((6.1, 0.18), text(size: 8.5pt)[$b$])
-      draw.content((3.5, 0.18), text(size: 8.5pt)[$c$])
+      draw.line((a, f(a)), (b, f(b)), stroke: 1pt + green)
+      draw.line((c - 1.15, tangent(c - 1.15)), (c + 1.15, tangent(c + 1.15)), stroke: 1pt + blue)
+      draw.circle((a, f(a)), radius: 0.055, fill: green, stroke: none)
+      draw.circle((b, f(b)), radius: 0.055, fill: green, stroke: none)
+      draw.circle((c, f(c)), radius: 0.06, fill: blue, stroke: none)
+      draw.line((c, 0.5), (c, f(c)), stroke: 0.55pt + blue)
+      draw.content((a, 0.18), text(size: 8.5pt)[$a$])
+      draw.content((b, 0.18), text(size: 8.5pt)[$b$])
+      draw.content((c, 0.18), text(size: 8.5pt)[$c$])
     })
   ]
 ]
@@ -419,7 +447,7 @@ Differentiation measures the best linear approximation to a function at a point.
   We have $F(a) = F(b) = 0$, so some $c in (a, b)$ satisfies $F'(c) = 0$, which is exactly the claimed identity.
 ]
 
-== Holder Continuity
+== Holder and Lipschitz Continuity
 
 #definition("Holder continuity")[
   Let $alpha > 0$. A function $f$ is *$alpha$-Holder continuous* near $x$ if there are constants $C > 0$ and $r > 0$ such that
@@ -427,6 +455,18 @@ Differentiation measures the best linear approximation to a function at a point.
     abs(f(x) - f(y)) <= C abs(x - y)^alpha
   $
   whenever $abs(x - y) < r$.
+]
+
+#definition("Lipschitz continuity")[
+  A function is *Lipschitz continuous* near $x$ if it is $1$-Holder continuous near $x$, meaning
+  $
+    abs(f(x) - f(y)) <= C abs(x - y)
+  $
+  for nearby $y$.
+]
+
+#note[
+  The bounded-derivative corollary above says differentiable functions with bounded derivative are Lipschitz. Holder continuity is included here because it is a useful tutorial-style condition for proving continuity and uniform continuity.
 ]
 
 #proposition("Holder continuity implies continuity")[
