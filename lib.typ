@@ -135,17 +135,10 @@
   year: "",
   authors: (),
   preface: none,
+  chapter-offset: 0,
   body,
 ) = {
   let authors = if type(authors) == str { (authors,) } else { authors }
-  show heading.where(level: 1): it => {
-    _thm-ctr.update(0)
-    _def-ctr.update(0)
-    _ex-ctr.update(0)
-    _exr-ctr.update(0)
-    it
-  }
-
   set document(title: title, author: authors)
 
   set page(
@@ -175,9 +168,26 @@
   )
 
   set text(size: 11.5pt, lang: "en", font: "New Computer Modern")
-  set heading(numbering: "1.1")
+  set heading(numbering: (..nums) => {
+    let ns = nums.pos()
+    let parts = ()
+    for i in range(ns.len()) {
+      let n = ns.at(i)
+      parts.push(str(if i == 0 { n + chapter-offset } else { n }))
+    }
+    parts.join(".")
+  })
   set par(justify: true, leading: 0.74em)
   show heading: it => {
+    if it.level == 1 {
+      _thm-ctr.update(0)
+      _def-ctr.update(0)
+      _ex-ctr.update(0)
+      _exr-ctr.update(0)
+      if _in_body.at(here()) {
+        pagebreak(weak: true)
+      }
+    }
     v(0.8em, weak: true)
     it
     v(0.4em, weak: true)

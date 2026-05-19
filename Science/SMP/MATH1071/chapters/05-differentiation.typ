@@ -2,7 +2,7 @@
 
 = Differentiation
 
-Differentiation measures the best linear approximation to a function at a point. In this chapter, the main ideas are derivative rules, how differentiability interacts with continuity, and the mean value theorem, which turns local derivative information into global information about a function.
+Differentiation measures the best linear approximation to a function at a point. The main topics here are derivative rules, the link between differentiability and continuity, and the mean value theorem.
 
 == Derivatives
 
@@ -146,6 +146,26 @@ Differentiation measures the best linear approximation to a function at a point.
     (f compose g)'(c) = f'(g(c)) g'(c).
   $
 ]<thm:chain-rule>
+
+#proof[
+  Put $b = g(c)$. Define
+  $
+    q(y) = cases(
+      (f(y) - f(b)) / (y - b) & "if " y != b,
+      f'(b) & "if " y = b.
+    )
+  $
+  Since $f$ is differentiable at $b$, we have $q(y) -> f'(b)$ as $y -> b$, so $q$ is continuous at $b$. For $x$ near $c$,
+  $
+    f(g(x)) - f(g(c)) = q(g(x))(g(x) - g(c)).
+  $
+  Therefore
+  $
+    (f(g(x)) - f(g(c))) / (x - c)
+      = q(g(x)) (g(x) - g(c)) / (x - c).
+  $
+  Taking $x -> c$ gives $q(g(x)) -> q(b) = f'(b)$ and $(g(x) - g(c)) / (x - c) -> g'(c)$.
+]
 
 #example[
   The standard derivative rules give:
@@ -400,6 +420,27 @@ Differentiation measures the best linear approximation to a function at a point.
   The sign of $f'(c)$ determines the sign of $f(y) - f(x)$.
 ]
 
+#theorem("Second derivative test")[
+  Let $f$ be differentiable in a neighbourhood of $c$, and suppose $f'(c) = 0$ and $f''(c)$ exists.
+  - If $f''(c) > 0$, then $f$ has a local minimum at $c$.
+  - If $f''(c) < 0$, then $f$ has a local maximum at $c$.
+  - If $f''(c) = 0$, the test is inconclusive.
+]
+
+#proof[
+  Suppose $f''(c) > 0$. Since
+  $
+    f''(c) = lim_(x -> c) (f'(x) - f'(c)) / (x - c),
+  $
+  there is a neighbourhood of $c$ in which
+  $
+    (f'(x) - f'(c)) / (x - c) > 0
+  $
+  for $x != c$. As $f'(c) = 0$, this means $f'(x) < 0$ just to the left of $c$ and $f'(x) > 0$ just to the right of $c$. By the monotonicity corollary, $f$ decreases into $c$ and increases after $c$, so $c$ is a local minimum. The case $f''(c) < 0$ is the same with the inequalities reversed.
+
+  When $f''(c) = 0$, the examples $x^4$, $-x^4$, and $x^3$ at $0$ show that a local minimum, a local maximum, or neither may occur.
+]
+
 #corollary("Bounded derivative gives uniform continuity")[
   If $f: I -> RR$ is differentiable on an interval $I$ and there is $M >= 0$ such that
   $
@@ -430,57 +471,4 @@ Differentiation measures the best linear approximation to a function at a point.
     abs((log x)') = 1 / x <= 1
   $
   on that interval.
-]
-
-#theorem("Cauchy mean value theorem")[
-  Let $f, g: [a, b] -> RR$ be continuous on $[a, b]$ and differentiable on $(a, b)$. Then there exists $c in (a, b)$ such that
-  $
-    f'(c)(g(b) - g(a)) = g'(c)(f(b) - f(a)).
-  $
-]
-
-#proof[
-  Apply #link(<thm:rolle>)[Rolle's theorem] to
-  $
-    F(x) = (f(x) - f(a))(g(b) - g(a)) - (g(x) - g(a))(f(b) - f(a)).
-  $
-  We have $F(a) = F(b) = 0$, so some $c in (a, b)$ satisfies $F'(c) = 0$, which is exactly the claimed identity.
-]
-
-== Holder and Lipschitz Continuity
-
-#definition("Holder continuity")[
-  Let $alpha > 0$. A function $f$ is *$alpha$-Holder continuous* near $x$ if there are constants $C > 0$ and $r > 0$ such that
-  $
-    abs(f(x) - f(y)) <= C abs(x - y)^alpha
-  $
-  whenever $abs(x - y) < r$.
-]
-
-#definition("Lipschitz continuity")[
-  A function is *Lipschitz continuous* near $x$ if it is $1$-Holder continuous near $x$, meaning
-  $
-    abs(f(x) - f(y)) <= C abs(x - y)
-  $
-  for nearby $y$.
-]
-
-#note[
-  The bounded-derivative corollary above says differentiable functions with bounded derivative are Lipschitz. Holder continuity is included here because it is a useful tutorial-style condition for proving continuity and uniform continuity.
-]
-
-#proposition("Holder continuity implies continuity")[
-  If $f$ is $alpha$-Holder continuous near $x$, then $f$ is continuous at $x$. If the same constants work for all $x, y$ in an interval, then $f$ is uniformly continuous on that interval.
-]
-
-#proof[
-  Given $epsilon > 0$, choose
-  $
-    delta = (epsilon / C)^(1 / alpha).
-  $
-  Then $abs(x - y) < delta$ implies
-  $
-    abs(f(x) - f(y)) <= C abs(x - y)^alpha < epsilon.
-  $
-  If the Holder estimate holds uniformly across an interval, this same $delta$ works for every pair of points in the interval.
 ]

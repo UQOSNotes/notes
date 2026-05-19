@@ -5,8 +5,10 @@
   title: "Advanced Calculus and Linear Algebra I",
   year: "Semester 1, 2026",
   authors: ("April Kidd",),
+  chapter-offset: -1,
 )
 
+#include "chapters/00-notation.typ"
 #include "chapters/01-fields-and-order.typ"
 #include "chapters/02-sequences.typ"
 #include "chapters/03-subsequences-and-cauchy.typ"

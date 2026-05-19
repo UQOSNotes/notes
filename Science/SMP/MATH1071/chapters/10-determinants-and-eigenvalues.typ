@@ -7,7 +7,12 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 == Determinants
 
 #definition("Determinant")[
-  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. For matrices larger than $2 times 2$, we compute it using the row-operation rules below together with $op("det") I = 1$.
+  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. It measures whether the rows or columns are independent; below we prove that a square matrix is invertible exactly when its determinant is non-zero.
+
+  The determinant is defined recursively. If $A = mat(a)$ is $1 times 1$, then $op("det") A = a$. If $A$ is $n times n$ with $n >= 2$, delete row $1$ and column $j$ to obtain the $(n - 1) times (n - 1)$ matrix $A_(1 j)$. Then
+  $
+    op("det") A = sum_(j=1)^n (-1)^(1 + j) a_(1 j) op("det") A_(1 j).
+  $
 
   For
   $
@@ -19,6 +24,34 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   $
 ]
 
+#definition("Minors and cofactors")[
+  Let $A$ be an $n times n$ matrix. Write $A_(i j)$ for the matrix obtained from $A$ by deleting row $i$ and column $j$. The $(i, j)$-*minor* is
+  $
+    M_(i j) = op("det") A_(i j).
+  $
+
+  The $(i, j)$-*cofactor* is
+  $
+    C_(i j) = (-1)^(i + j) M_(i j).
+  $
+]
+
+#theorem("Cofactor expansion")[
+  The determinant of an $n times n$ matrix can be expanded along any row or any column:
+  $
+    op("det") A = sum_(j=1)^n a_(i j) C_(i j)
+  $
+  for a fixed row $i$, and
+  $
+    op("det") A = sum_(i=1)^n a_(i j) C_(i j)
+  $
+  for a fixed column $j$.
+]
+
+#note[
+  Cofactor expansion is usually best when a row or column has many zeroes. For larger matrices, row operations are usually faster.
+]
+
 #proposition("Determinants and row operations")[
   Let $A$ be a square matrix.
   - Swapping two rows multiplies the determinant by $-1$.
@@ -27,7 +60,7 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 ]
 
 #note[
-  These rules are the computational backbone of determinants in this course. A full construction of the determinant for arbitrary size is possible, but most problems here only need these row-operation rules, triangular matrices, and the determinant laws below.
+  These rules are the computational backbone of determinants in this course. The recursive definition is useful for explaining what the determinant is; row operations are usually better for computing large determinants.
 ]
 
 #proposition("Triangular determinant")[
@@ -39,7 +72,7 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   $
     A = mat(x, 1, 2; 1, x, 3; 0, 0, 1),
   $
-  expansion along the last row gives
+  cofactor expansion along the last row gives
   $
     op("det") A = op("det") mat(x, 1; 1, x) = x^2 - 1.
   $
@@ -183,6 +216,8 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 ]
 
 #proposition("Vandermonde determinant")[
+  This is a starred tutorial result rather than a basic determinant computation.
+
   For
   $
     V_n = mat(
@@ -356,6 +391,8 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
     c_1(lambda_1 - lambda_2)v_1 = 0.
   $
   Since $v_1 != 0$ and $lambda_1 != lambda_2$, $c_1 = 0$. Then $c_2 = 0$.
+
+  The same idea proves the general finite case by induction: apply $A$ to a dependence relation, subtract one eigenvalue times the original relation, and use the induction hypothesis on the remaining eigenvectors.
 ]
 
 #proposition("Positive quadratic forms and eigenvalues")[

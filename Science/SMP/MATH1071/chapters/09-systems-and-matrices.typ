@@ -2,12 +2,18 @@
 
 = Systems of Linear Equations and Matrices
 
-Linear algebra begins with the problem of solving several linear equations at once. The main point of matrix notation is that the same row operations solve the system, describe the set of solutions, and later decide invertibility.
+Linear algebra starts here with systems of equations. Matrix notation is useful because the same row operations solve the system, describe the solution set, and later test invertibility.
 
 == Euclidean Vectors
 
 #definition("Dot product and norm")[
-  For vectors $u = mat(u_1; dots; u_n)$ and $v = mat(v_1; dots; v_n)$ in $RR^n$, the *dot product* is
+  For vectors
+  $
+    u = mat(u_1; dots; u_n)
+    quad "and" quad
+    v = mat(v_1; dots; v_n)
+  $
+  in $RR^n$, the *dot product* is
   $
     u dot v = sum_(i=1)^n u_i v_i.
   $
@@ -30,6 +36,19 @@ Linear algebra begins with the problem of solving several linear equations at on
     abs(u dot v) <= norm(u) norm(v).
   $
 ]<thm:cauchy-schwarz>
+
+#proof[
+  If $v = 0$, then both sides are $0$. Otherwise, for every $t in RR$,
+  $
+    0 <= norm(u - t v)^2
+      = norm(u)^2 - 2t(u dot v) + t^2 norm(v)^2.
+  $
+  Choose $t = (u dot v) / norm(v)^2$. Substitution gives
+  $
+    0 <= norm(u)^2 - (u dot v)^2 / norm(v)^2.
+  $
+  Multiplying by $norm(v)^2$ gives $(u dot v)^2 <= norm(u)^2 norm(v)^2$, and taking square roots gives the result.
+]
 
 #theorem("Vector triangle inequality")[
   For all $u, v in RR^n$,
@@ -110,7 +129,13 @@ Linear algebra begins with the problem of solving several linear equations at on
 ]
 
 #definition("Cross product in three dimensions")[
-  For $u = mat(u_1; u_2; u_3)$ and $v = mat(v_1; v_2; v_3)$, the *cross product* is
+  For vectors
+  $
+    u = mat(u_1; u_2; u_3)
+    quad "and" quad
+    v = mat(v_1; v_2; v_3),
+  $
+  the *cross product* is
   $
     u times v
       = mat(

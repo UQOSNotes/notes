@@ -2,7 +2,7 @@
 
 = Vector Spaces
 
-Vector spaces are the common language behind vectors in $RR^n$, matrices, polynomials, and solution sets of homogeneous systems. The objects may look different, but the same ideas of span, independence, basis, and dimension apply to all of them.
+The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials, and solution sets of homogeneous systems. The shared language is vector spaces, subspaces, span, independence, basis, and dimension.
 
 == Vector Spaces and Subspaces
 
@@ -227,18 +227,33 @@ Vector spaces are the common language behind vectors in $RR^n$, matrices, polyno
 #example[
   The four vectors
   $
-    mat(x; x; 1; 1),
+    mat(x; 1; 1; 1),
     quad
-    mat(1; 1; 1; 1),
+    mat(1; x; 1; 1),
     quad
     mat(1; 1; x; 1),
     quad
     mat(1; 1; 1; x)
   $
-  never form a basis of $RR^4$, because every vector in their span has first coordinate equal to second coordinate. If $x = 1$, all four vectors are equal, so the span has dimension $1$. If $x != 1$, their span is the three-dimensional subspace
+  form the columns of the matrix
   $
-    {mat(a; a; b; c) : a, b, c in RR}.
+    A = mat(
+      x, 1, 1, 1;
+      1, x, 1, 1;
+      1, 1, x, 1;
+      1, 1, 1, x
+    )
+    = (x - 1)I + J,
   $
+  where $J$ is the all-ones matrix. The vector
+  $
+    mat(1; 1; 1; 1)
+  $
+  is scaled by $x + 3$, while every vector whose entries sum to $0$ is scaled by $x - 1$. Hence
+  $
+    op("det") A = (x + 3)(x - 1)^3.
+  $
+  The vectors fail to form a basis exactly when $x = 1$ or $x = -3$. If $x = 1$, all four vectors are equal, so the span has dimension $1$. If $x = -3$, the span has dimension $3$.
 ]
 
 == Sums and Intersections of Subspaces
@@ -316,6 +331,28 @@ Vector spaces are the common language behind vectors in $RR^n$, matrices, polyno
 ]
 
 #example[
+  Let
+  $
+    W' = {mat(0, a; 0, b) : a, b in RR}.
+  $
+  For the subspace $W$ above,
+  $
+    W inter W' = {mat(0, a; 0, b) : mat(0, a; 0, b) = mat(0, 0; a, b) " and " b = 0}
+      = {0}.
+  $
+  Also every matrix
+  $
+    mat(p, q; r, s)
+  $
+  can be written as a sum of an element of $W$ and an element of $W'$:
+  $
+    mat(p, q; r, s)
+      = mat(p, r; r, -p) + mat(0, q - r; 0, s + p).
+  $
+  Hence $M_(2 times 2)(RR) = W + W'$.
+]
+
+#example[
   The set of $2 times 2$ real matrices $A$ satisfying $A^2 = 0$ is not a subspace. For example,
   $
     A = mat(0, 1; 0, 0),
@@ -369,7 +406,11 @@ Chapter 9 described linear maps $RR^n -> RR^m$ using matrices in the standard ba
   $
     T(mat(1, 0; 0, -1)) = 3 mat(1, 0; 0, -1),
   $
-  so $mat(1, 0; 0, -1)$ is an eigenvector with eigenvalue $3$. But
+  so
+  $
+    mat(1, 0; 0, -1)
+  $
+  is an eigenvector with eigenvalue $3$. But
   $
     T(I) = 3I + 2 mat(0, -1; 1, 0),
   $

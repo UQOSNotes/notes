@@ -2,9 +2,9 @@
 
 = Bounds, Sequences, and Limits
 
-Limits are the first place where the course becomes genuinely analytical. The point is not to say that a sequence "gets close" to a number, but to say exactly what that means and then use the definition without hand-waving.
+Limits are where the course first gets properly analytical. Saying that a sequence "gets close" to a number is only intuition; the definition below is the version that can actually be used in a proof.
 
-The main habit in this chapter is to separate two questions:
+For most sequence-limit questions, separate two steps:
 - What number should the limit be?
 - Given an arbitrary tolerance $epsilon > 0$, how far along the sequence do we need to go before every later term is inside that tolerance?
 
