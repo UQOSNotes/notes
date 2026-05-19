@@ -7,7 +7,9 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 == Determinants
 
 #definition("Determinant")[
-  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. For
+  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. For matrices larger than $2 times 2$, we compute it using the row-operation rules below together with $op("det") I = 1$.
+
+  For
   $
     A = mat(a, b; c, d),
   $
@@ -22,6 +24,10 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   - Swapping two rows multiplies the determinant by $-1$.
   - Multiplying one row by $c$ multiplies the determinant by $c$.
   - Adding a multiple of one row to another row does not change the determinant.
+]
+
+#note[
+  These rules are the computational backbone of determinants in this course. A full construction of the determinant for arbitrary size is possible, but most problems here only need these row-operation rules, triangular matrices, and the determinant laws below.
 ]
 
 #proposition("Triangular determinant")[

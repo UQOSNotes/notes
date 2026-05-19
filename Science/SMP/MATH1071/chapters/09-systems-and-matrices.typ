@@ -255,6 +255,10 @@ Linear algebra begins with the problem of solving several linear equations at on
   Swapping equations does not change which tuples satisfy all equations. Multiplying an equation by a non-zero scalar gives an equivalent equation. Replacing one equation by itself plus a multiple of another is reversible by subtracting the same multiple, so it also preserves the solution set.
 ]
 
+#note[
+  Each elementary row operation is itself an invertible transformation of the rows. This is why row reduction can simplify a system without losing information: every step can be undone by another elementary row operation.
+]
+
 == Echelon Form
 
 #definition("Row echelon form")[
@@ -403,7 +407,11 @@ Linear algebra begins with the problem of solving several linear equations at on
   These are equal for every $E$ exactly when $x = y$. Otherwise $D$ commutes only with matrices satisfying $(x - y)b = 0$ and $(y - x)c = 0$.
 ]
 
+#pagebreak()
+
 == Matrix Transformations
+
+Matrices and linear transformations are two ways of describing the same finite-dimensional behaviour. In this course we mostly use the standard bases of $RR^n$ and $RR^m$, so a linear map can be recorded by the matrix whose columns are its outputs on the standard basis vectors.
 
 #definition("Standard basis")[
   The *standard basis* of $RR^n$ is $e_1, dots, e_n$, where $e_j$ has a $1$ in the $j$-th position and $0$ elsewhere.
@@ -412,13 +420,13 @@ Linear algebra begins with the problem of solving several linear equations at on
 #definition("Matrix transformation")[
   If $A$ is an $m times n$ matrix, it defines a function
   $
-    T_A: RR^n -> RR^m,
+    T_(A): RR^n -> RR^m,
     quad
-    T_A(x) = A x.
+    T_(A)(x) = A x.
   $
   This function is linear:
   $
-    T_A(c x + d y) = c T_A(x) + d T_A(y).
+    T_(A)(c x + d y) = c T_(A)(x) + d T_(A)(y).
   $
 ]
 
@@ -438,17 +446,21 @@ Linear algebra begins with the problem of solving several linear equations at on
   which is exactly the matrix product $A x$ when the columns of $A$ are $T(e_1), dots, T(e_n)$.
 ]
 
+#note[
+  For a general finite-dimensional vector space, one first chooses a basis and then records coordinates relative to that basis. The standard-basis case above is the version needed for $RR^n$.
+]
+
 #proposition("Composition corresponds to multiplication")[
   If $A$ is $m times n$ and $B$ is $n times p$, then
   $
-    T_A compose T_B = T_(A B).
+    T_(A) compose T_(B) = T_(A B).
   $
 ]
 
 #proof[
   For $x in RR^p$,
   $
-    (T_A compose T_B)(x) = T_A(B x) = A(B x) = (A B)x.
+    (T_(A) compose T_(B))(x) = T_(A)(B x) = A(B x) = (A B)x.
   $
 ]
 
