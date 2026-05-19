@@ -192,6 +192,42 @@ The condition $0 < abs(x - a)$ means that the value $f(a)$ does not matter for t
   $
 ]
 
+#theorem("Limit of a composite function")[
+  Suppose
+  $
+    lim_(x -> a) g(x) = b
+    quad "and" quad
+    lim_(y -> b) f(y) = L.
+  $
+  If $g(x) != b$ for all $x$ sufficiently close to $a$ with $x != a$, then
+  $
+    lim_(x -> a) f(g(x)) = L.
+  $
+]<thm:composite-function-limit>
+
+#proof[
+  Let $epsilon > 0$. Since $f(y) -> L$ as $y -> b$, choose $eta > 0$ such that
+  $
+    0 < abs(y - b) < eta quad ==> quad abs(f(y) - L) < epsilon.
+  $
+  Since $g(x) -> b$ as $x -> a$, choose $delta > 0$ so that
+  $
+    0 < abs(x - a) < delta quad ==> quad abs(g(x) - b) < eta.
+  $
+  Shrink $delta$ if needed so that $g(x) != b$ in the same punctured neighbourhood. Then
+  $
+    0 < abs(g(x) - b) < eta,
+  $
+  so $abs(f(g(x)) - L) < epsilon$.
+]
+
+#corollary("Continuous outer functions preserve limits")[
+  If $g(x) -> b$ as $x -> a$ and $f$ is continuous at $b$, then
+  $
+    f(g(x)) -> f(b).
+  $
+]
+
 #example[
   Algebraic simplification gives
   $

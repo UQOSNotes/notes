@@ -170,6 +170,14 @@ A series is an infinite sum, but convergence is still a statement about sequence
   diverges by the integral test.
 ]
 
+#example[
+  Consider
+  $
+    sum_(n=N)^infinity e^(-a n + 1 / n) / n,
+  $
+  where $N$ is fixed and $a in RR$. If $a > 0$, then the terms are eventually bounded by a constant multiple of $e^(-a n) / n$, so the series converges by comparison with a geometric series. If $a = 0$, then $e^(1 / n) / n >= 1 / n$, so the series diverges. If $a < 0$, the terms do not tend to $0$. Hence the series diverges exactly when $a <= 0$.
+]
+
 == Integral Test and p-Series
 
 #theorem("Integral test")[
@@ -489,6 +497,7 @@ A series is an infinite sum, but convergence is still a statement about sequence
       = log 4 + log(1 + x^2 / 4)
       = 2 log 2 + sum_(n=1)^infinity (-1)^(n - 1) x^(2n) / (n 4^n).
   $
+  This expansion is valid for $abs(x) < 2$, and also at $x = plus.minus 2$ by the endpoint convergence of the logarithm series.
 ]
 
 #example[
@@ -496,11 +505,13 @@ A series is an infinite sum, but convergence is still a statement about sequence
   $
     log((1 + x)^2) = 2 log(1 + x),
   $
+  for $x > -1$,
   we have
   $
     log((1 + x)^2)
       = 2 sum_(n=1)^infinity (-1)^(n - 1) x^n / n.
   $
+  The usual interval from the logarithm series is $-1 < x <= 1$.
 ]
 
 #example[

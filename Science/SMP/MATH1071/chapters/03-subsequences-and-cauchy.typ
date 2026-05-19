@@ -2,7 +2,7 @@
 
 = More Sequences
 
-The previous chapter studied what it means for an entire sequence to converge. This chapter studies what can still be said when the whole sequence does not settle down. The main tools are monotonicity, subsequences, upper and lower limits, cluster points, and Cauchy sequences.
+The previous chapter dealt mostly with sequences that have a single limit. Here we look at what remains useful when a sequence does not settle down: monotonicity, subsequences, upper and lower limits, cluster points, and Cauchy sequences.
 
 == Monotone Sequences
 
@@ -58,6 +58,32 @@ The monotone sequences are the easiest sequences to understand: if they are prev
     a_(n + 1) - a_n = 1 / 2 (6 - a_n) > 0,
   $
   so $(a_n)$ is strictly increasing. It is increasing and bounded above, so it converges by the #link(<thm:monotone-convergence>)[monotone convergence theorem].
+]
+
+#example[
+  Let $a_1 = 1$ and
+  $
+    a_(n + 1) = (1 + a_n) / (2 + a_n).
+  $
+  The fixed points satisfy $L = (1 + L) / (2 + L)$, hence
+  $
+    L^2 + L - 1 = 0.
+  $
+  Put $alpha = (sqrt(5) - 1) / 2$, the positive fixed point. If $a_n > alpha$, then
+  $
+    a_(n + 1) - alpha
+      = ((1 - alpha)(a_n - alpha)) / (2 + a_n) > 0,
+  $
+  so the sequence stays above $alpha$. Also
+  $
+    a_(n + 1) < a_n
+      quad "is equivalent to" quad
+      a_n^2 + a_n - 1 > 0,
+  $
+  which holds whenever $a_n > alpha$. Thus $(a_n)$ is decreasing and bounded below by $alpha$, so it converges. Taking limits in the recurrence gives
+  $
+    lim_(n -> infinity) a_n = alpha.
+  $
 ]
 
 #definition("Limits to infinity")[

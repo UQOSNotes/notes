@@ -2,7 +2,7 @@
 
 = Integration Techniques and Applications
 
-The fundamental theorem turns many integration questions into antiderivative questions. This chapter collects the main techniques for finding antiderivatives and for using integrals as functions.
+The fundamental theorem turns many definite integrals into antiderivative calculations. The techniques below are the ones that appear most often in tutorials and exams.
 
 == Variable Limits
 
@@ -213,6 +213,23 @@ By the fundamental theorem, $L'(x) = 1 / x$ and $L(1) = 0$.
 ]
 
 #example[
+  For
+  $
+    integral cos(x^(1 / 3)) / x^(1 / 3) dif x,
+  $
+  take $u = x^(1 / 3)$, so $x = u^3$ and $dif x = 3u^2 dif u$. Then
+  $
+    integral cos(x^(1 / 3)) / x^(1 / 3) dif x
+      = 3 integral u cos u dif u
+      = 3u sin u + 3 cos u + C.
+  $
+  Therefore the antiderivative is
+  $
+    3x^(1 / 3) sin(x^(1 / 3)) + 3 cos(x^(1 / 3)) + C.
+  $
+]
+
+#example[
   $
     integral_1^e sin(log x) / x dif x
       = integral_0^1 sin u dif u
@@ -372,4 +389,16 @@ The common substitutions are:
       = lim_(epsilon -> 0^+) (2 - 2 sqrt(epsilon))
       = 2.
   $
+]
+
+#example[
+  The improper integral
+  $
+    integral_0^infinity cos x dif x
+  $
+  diverges, because
+  $
+    integral_0^R cos x dif x = sin R
+  $
+  has no limit as $R -> infinity$.
 ]

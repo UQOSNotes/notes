@@ -2,7 +2,7 @@
 
 = Sets, Fields, and Order
 
-This course begins by turning familiar arithmetic into precise objects. This matters because the first part of the course is not just about calculating limits and derivatives: it is about proving why those calculations are valid. Most early arguments use only three layers of structure:
+The course starts by putting familiar arithmetic on firmer footing. Early MATH1071 is proof-heavy, so it helps to know exactly which properties of the real numbers are being used. Most early arguments use three layers of structure:
 
 - set notation, so that we can say what objects we are discussing;
 - field arithmetic, so that addition, multiplication, subtraction, and division behave correctly;

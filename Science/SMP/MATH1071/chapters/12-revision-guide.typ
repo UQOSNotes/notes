@@ -1,10 +1,8 @@
 #import "/lib.typ": *
 
-#pagebreak()
-
 = Revision Guide
 
-This chapter is for the final pass before an exam. It does not replace the earlier chapters; it tells you which tool to reach for and what a complete solution usually needs.
+Use this as a final-pass checklist before an exam. It is brief on purpose. For full definitions, proofs, and examples, go back to the relevant chapter.
 
 == Theorem Checklist
 
@@ -16,7 +14,6 @@ This chapter is for the final pass before an exam. It does not replace the earli
   - intermediate value theorem,
   - extreme value theorem,
   - Rolle's theorem and the mean value theorem,
-  - Cauchy mean value theorem,
   - fundamental theorem of calculus,
   - comparison criterion for series.
 ]

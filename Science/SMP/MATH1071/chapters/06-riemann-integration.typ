@@ -2,7 +2,7 @@
 
 = Riemann Integration
 
-The Riemann integral makes the idea of signed area precise by trapping a function between lower rectangles and upper rectangles. The central question is whether these two approximations can be made arbitrarily close.
+The Riemann integral makes signed area precise using lower and upper rectangles. A bounded function is integrable when these lower and upper approximations can be made arbitrarily close.
 
 == Partitions and Sums
 
