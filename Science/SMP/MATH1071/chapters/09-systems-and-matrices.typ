@@ -284,6 +284,18 @@ Linear algebra starts here with systems of equations. Matrix notation is useful 
   Each elementary row operation is itself an invertible transformation of the rows. This is why row reduction can simplify a system without losing information: every step can be undone by another elementary row operation.
 ]
 
+#definition("Elementary matrix")[
+  An *elementary matrix* is obtained by applying one elementary row operation to an identity matrix.
+]
+
+#proposition("Row operations as matrix multiplication")[
+  Applying an elementary row operation to an $m times n$ matrix is the same as left-multiplying by an invertible $m times m$ elementary matrix.
+]
+
+#proof[
+  Apply the row operation to $I_m$ and call the result $E$. For any $m times n$ matrix $A$, the product $E A$ performs that same operation on the rows of $A$. The row operation can be undone, so the inverse operation gives an elementary matrix $F$ with $F E = E F = I_m$. Hence $E$ is invertible.
+]
+
 == Echelon Form
 
 #definition("Row echelon form")[
@@ -528,6 +540,14 @@ Matrices and linear transformations are two ways of describing the same finite-d
 #proposition("Finding inverses by row reduction")[
   A square matrix $A$ is invertible exactly when $[A | I]$ row-reduces to $[I | B]$. In that case $B = A^(-1)$.
 ]<prop:inverse-row-reduction>
+
+#proof[
+  Row operations on $[A | I]$ are left multiplication by elementary matrices. A sequence of row operations is therefore left multiplication by some invertible matrix $E$.
+
+  If the reduction gives $[I | B]$, then $E A = I$ and $E I = B$. Thus $B = E$ and $B A = I$. Since $E$ is invertible, $A = E^(-1)$, so $B = A^(-1)$.
+
+  Conversely, if $A$ is invertible, row reduction cannot get stuck before a pivot appears in every column; otherwise there would be a non-zero vector $x$ with $A x = 0$, contradicting $x = A^(-1) A x = 0$. Hence $A$ row-reduces to $I$, and applying the same row operations to the right half gives $A^(-1)$.
+]
 
 #example[
   Let
