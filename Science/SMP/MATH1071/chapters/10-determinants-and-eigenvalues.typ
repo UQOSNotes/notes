@@ -2,12 +2,18 @@
 
 = Determinants, Eigenvalues, and Eigenvectors
 
-Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors record directions on which a matrix acts by simple scaling. These ideas are tightly connected: eigenvalues are found by applying a determinant to $A - lambda I$.
+Determinants measure signed volume-scaling for square matrices, so they give a scalar test for invertibility. Eigenvalues and eigenvectors record directions on which a matrix acts by simple scaling. These ideas are tightly connected: eigenvalues are found by applying a determinant to $A - lambda I$.
 
 == Determinants
 
+If $A$ is an $n times n$ matrix, the columns of $A$ are the images of the standard basis vectors under the matrix transformation $T_A$. These vectors span a fundamental parallelepiped. Geometrically,
+$
+  op("Vol")("FP"_A) = abs(op("det") A).
+$
+If this volume is zero, the transformation has collapsed space into a lower-dimensional object, so it cannot be invertible.
+
 #definition("Determinant")[
-  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. It measures whether the rows or columns are independent; below we prove that a square matrix is invertible exactly when its determinant is non-zero.
+  The *determinant* assigns a scalar $op("det") A$ to each square matrix $A$. It measures the signed version of the volume-scaling described above; below we prove that a square matrix is invertible exactly when its determinant is non-zero.
 
   The determinant is defined recursively. If $A = mat(a)$ is $1 times 1$, then $op("det") A = a$. If $A$ is $n times n$ with $n >= 2$, delete row $1$ and column $j$ to obtain the $(n - 1) times (n - 1)$ matrix $A_(1 j)$. Then
   $
@@ -50,6 +56,21 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 
 #note[
   Cofactor expansion is usually best when a row or column has many zeroes. For larger matrices, row operations are usually faster.
+]
+
+#example[
+  Expanding a $3 times 3$ determinant along the first row gives
+  $
+    op("det") mat(a, b, c; d, e, f; g, h, i)
+      = a op("det") mat(e, f; h, i)
+        - b op("det") mat(d, f; g, i)
+        + c op("det") mat(d, e; g, h).
+  $
+  Hence
+  $
+    op("det") mat(a, b, c; d, e, f; g, h, i)
+      = a(e i - f h) - b(d i - f g) + c(d h - e g).
+  $
 ]
 
 #proposition("Determinants and row operations")[
