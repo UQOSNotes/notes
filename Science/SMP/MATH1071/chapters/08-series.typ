@@ -297,6 +297,28 @@ A series is an infinite sum, but convergence is still a statement about sequence
   - If $r = 1$, the test is inconclusive.
 ]<thm:ratio-test>
 
+#diagram(caption: [
+  Ratio and root tests compare the tail of a series with a geometric tail. If the eventual shrink factor is below $1$, the tail is controlled by a convergent geometric series.
+])[
+  #canvas(length: 1cm, {
+    let axis = 0.75pt + black
+    let weak = 0.45pt + luma(170)
+    let bar = blue
+    let geom = green
+    draw.line((0.4, 0.45), (8.0, 0.45), stroke: axis, mark: (end: ">"))
+    draw.line((0.6, 0.25), (0.6, 3.7), stroke: axis, mark: (end: ">"))
+    for i in range(0, 7) {
+      let x = 1.1 + i * 0.9
+      let h = 2.75 * calc.pow(0.68, i)
+      draw.rect((x, 0.45), (x + 0.35, 0.45 + h), fill: bar.lighten(82%), stroke: 0.45pt + bar)
+      draw.line((x + 0.45, 0.45), (x + 0.45, 0.45 + 2.75 * calc.pow(0.72, i)), stroke: 0.8pt + geom)
+    }
+    draw.content((5.2, 2.8), text(size: 8.5pt, fill: green)[geometric comparison])
+    draw.content((7.75, 0.15), text(size: 8.5pt)[$n$])
+    draw.content((0.2, 3.55), text(size: 8.5pt)[$abs(a_n)$])
+  })
+]
+
 #example[
   For
   $
@@ -393,6 +415,8 @@ A series is an infinite sum, but convergence is still a statement about sequence
 ]
 
 == Cauchy Condensation
+
+#note[Starred result from the 2026 tutorials.]
 
 #theorem("Cauchy condensation test")[
   Let $(a_n)$ be non-negative and decreasing. Then
@@ -594,6 +618,29 @@ A series is an infinite sum, but convergence is still a statement about sequence
     sum_(n=0)^infinity c_n (x - a)^n.
   $
   Its *radius of convergence* is the number $R in [0, infinity]$ such that the series converges absolutely for $abs(x - a) < R$ and diverges for $abs(x - a) > R$. Endpoints must be checked separately.
+]
+
+#diagram(caption: [
+  A radius of convergence gives an open interval of guaranteed convergence. The endpoints $a - R$ and $a + R$ must be checked separately.
+])[
+  #canvas(length: 1cm, {
+    let axis = 0.8pt + black
+    let accent = blue
+    let endpoint = green
+    draw.line((0.4, 0.8), (8.0, 0.8), stroke: axis, mark: (end: ">"))
+    draw.line((2.1, 0.8), (6.1, 0.8), stroke: 2.1pt + accent)
+    draw.circle((2.1, 0.8), radius: 0.09, fill: white, stroke: 0.9pt + endpoint)
+    draw.circle((6.1, 0.8), radius: 0.09, fill: white, stroke: 0.9pt + endpoint)
+    draw.circle((4.1, 0.8), radius: 0.075, fill: accent, stroke: none)
+    draw.line((4.1, 0.8), (2.1, 1.55), stroke: 0.7pt + luma(120))
+    draw.line((4.1, 0.8), (6.1, 1.55), stroke: 0.7pt + luma(120))
+    draw.content((2.1, 0.35), text(size: 8.5pt)[$a - R$])
+    draw.content((4.1, 0.35), text(size: 8.5pt)[$a$])
+    draw.content((6.1, 0.35), text(size: 8.5pt)[$a + R$])
+    draw.content((4.1, 1.85), text(size: 8.5pt, fill: blue)[absolute convergence])
+    draw.content((2.0, 1.15), text(size: 8pt, fill: green)[check])
+    draw.content((6.2, 1.15), text(size: 8pt, fill: green)[check])
+  })
 ]
 
 #example[

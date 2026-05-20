@@ -37,6 +37,8 @@ The fundamental theorem turns many definite integrals into antiderivative calcul
 ]
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   The Eulerian logarithmic integral is
   $
     op("Li")(x) = integral_2^x 1 / (log t) dif t.
@@ -52,6 +54,8 @@ The fundamental theorem turns many definite integrals into antiderivative calcul
 ]
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   Let
   $
     g(x) = integral_0^x (sin t) / (t + 1) dif t.
@@ -289,6 +293,8 @@ By the fundamental theorem, $L'(x) = 1 / x$ and $L(1) = 0$.
 
 == Trigonometric Substitution
 
+#note[Found in the 2026 tutorials.]
+
 The common substitutions are:
 - use $x = a sin theta$ for $sqrt(a^2 - x^2)$;
 - use $x = a tan theta$ for $sqrt(a^2 + x^2)$;
@@ -315,6 +321,8 @@ The common substitutions are:
 ]
 
 == Definite Integrals and Areas
+
+#note[The examples in this section are tutorial-style practice.]
 
 #example[
   To compute

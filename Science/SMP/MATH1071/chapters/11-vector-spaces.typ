@@ -2,6 +2,8 @@
 
 = Vector Spaces
 
+#note[This chapter is mostly based on 2026 tutorial material and the advertised Week 13 topics. Treat it as exam-prep and tutorial extension material unless a result is also stated in lecture.]
+
 The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials, and solution sets of homogeneous systems. The shared language is vector spaces, subspaces, span, independence, basis, and dimension.
 
 == Vector Spaces and Subspaces
@@ -34,10 +36,14 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]<prop:subspace-test>
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   The set of $n times n$ upper triangular matrices is a subspace of $M_(n times n)(RR)$: the zero matrix is upper triangular, sums of upper triangular matrices are upper triangular, and scalar multiples are upper triangular.
 ]
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   The set of $n times n$ orthogonal matrices is not a subspace. It contains $I$, but $2I$ is not orthogonal because
   $
     (2I)^T(2I) = 4I != I.
@@ -75,6 +81,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 #proposition("Nullspace inclusion")[
+  #note[Found in the 2026 tutorials.]
+
   If $A$ and $B$ are square matrices, then
   $
     op("ker") B subset.eq op("ker")(A B).
@@ -107,6 +115,28 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
   $
 ]
 
+#diagram(caption: [
+  Two non-parallel vectors in $RR^3$ span the plane through the origin containing them.
+])[
+  #canvas(length: 1cm, {
+    let plane = blue.lighten(88%)
+    let edge = blue
+    let vec = green
+    draw.line((1.0, 0.9), (5.5, 0.9), stroke: 0.55pt + luma(150), mark: (end: ">"))
+    draw.line((1.0, 0.9), (1.0, 3.5), stroke: 0.55pt + luma(150), mark: (end: ">"))
+    draw.line((1.0, 0.9), (2.0, 0.15), stroke: 0.55pt + luma(150), mark: (end: ">"))
+    draw.line((1.45, 1.3), (4.8, 0.75), stroke: 0.8pt + edge)
+    draw.line((4.8, 0.75), (6.0, 2.35), stroke: 0.8pt + edge)
+    draw.line((6.0, 2.35), (2.55, 2.9), stroke: 0.8pt + edge)
+    draw.line((2.55, 2.9), (1.45, 1.3), stroke: 0.8pt + edge)
+    draw.line((1.0, 0.9), (4.25, 1.05), stroke: 1.15pt + vec, mark: (end: ">"))
+    draw.line((1.0, 0.9), (2.75, 2.65), stroke: 1.15pt + vec, mark: (end: ">"))
+    draw.content((4.3, 1.35), text(size: 8.5pt, fill: green)[$v_1$])
+    draw.content((2.75, 2.95), text(size: 8.5pt, fill: green)[$v_2$])
+    draw.content((5.2, 2.65), text(size: 8.5pt, fill: blue)[$op("span"){v_1, v_2}$])
+  })
+]
+
 #proposition("Spans are subspaces")[
   For any vectors $v_1, dots, v_k in V$, the set $op("span"){v_1, dots, v_k}$ is a subspace of $V$.
 ]
@@ -135,6 +165,28 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
     c_1 = dots = c_k = 0.
   $
   If there is a non-trivial solution, the vectors are *linearly dependent*.
+]
+
+#diagram(caption: [
+  In $RR^2$, two vectors are linearly independent exactly when neither lies on the line spanned by the other.
+])[
+  #canvas(length: 1cm, {
+    let axis = 0.55pt + luma(155)
+    let good = green
+    let bad = red
+    draw.line((0.6, 0.75), (3.45, 0.75), stroke: axis, mark: (end: ">"))
+    draw.line((0.8, 0.45), (0.8, 3.05), stroke: axis, mark: (end: ">"))
+    draw.line((0.8, 0.75), (2.7, 1.2), stroke: 1.15pt + good, mark: (end: ">"))
+    draw.line((0.8, 0.75), (1.55, 2.55), stroke: 1.15pt + good, mark: (end: ">"))
+    draw.content((2.05, 2.8), text(size: 8.5pt, fill: green)[independent])
+
+    draw.line((4.65, 0.75), (7.5, 0.75), stroke: axis, mark: (end: ">"))
+    draw.line((4.85, 0.45), (4.85, 3.05), stroke: axis, mark: (end: ">"))
+    draw.line((4.85, 0.75), (7.2, 2.0), stroke: 0.75pt + luma(140))
+    draw.line((4.85, 0.75), (5.95, 1.34), stroke: 1.15pt + bad, mark: (end: ">"))
+    draw.line((4.85, 0.75), (6.95, 1.87), stroke: 1.15pt + bad, mark: (end: ">"))
+    draw.content((6.1, 2.8), text(size: 8.5pt, fill: red)[dependent])
+  })
 ]
 
 #proposition("Subsets and supersets")[
@@ -167,6 +219,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 #proposition("Eigenvectors with distinct eigenvalues")[
+  #note[Found in the 2026 tutorials.]
+
   Eigenvectors corresponding to distinct eigenvalues are linearly independent.
 ]
 
@@ -203,6 +257,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   Let
   $
     V = {p(x) in P_7(RR) : p(1) = 0}.
@@ -221,6 +277,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 #pagebreak()
 
 #example[
+  #note[Found in the 2026 tutorials.]
+
   The four vectors
   $
     mat(x; 1; 1; 1),
@@ -253,6 +311,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 == Sums and Intersections of Subspaces
+
+#note[Found in the 2026 tutorials.]
 
 #definition("Sum of subspaces")[
   If $U$ and $V$ are subspaces of a vector space $W$, their sum is
@@ -306,6 +366,8 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 == Matrix Subspaces
+
+#note[Found in the 2026 tutorials.]
 
 #example[
   Let
@@ -371,6 +433,33 @@ Chapter 9 described linear maps $RR^n -> RR^m$ using matrices in the standard ba
     T(c u + d v) = c T(u) + d T(v)
   $
   for all $u, v in V$ and $c, d in RR$.
+]
+
+#diagram(caption: [
+  A linear map sends linear combinations in the domain to the same linear combinations of the images.
+])[
+  #canvas(length: 1cm, {
+    let outline = 0.9pt + blue
+    let image = 0.9pt + green
+    draw.rect((0.8, 0.55), (3.0, 2.75), stroke: outline, radius: 0.12)
+    draw.rect((5.1, 0.55), (7.3, 2.75), stroke: image, radius: 0.12)
+    draw.content((1.9, 2.95), text(size: 9pt, fill: blue)[$V$])
+    draw.content((6.2, 2.95), text(size: 9pt, fill: green)[$W$])
+    draw.circle((1.55, 1.35), radius: 0.06, fill: blue, stroke: none)
+    draw.circle((2.35, 1.95), radius: 0.06, fill: blue, stroke: none)
+    draw.circle((2.1, 1.25), radius: 0.06, fill: blue, stroke: none)
+    draw.content((1.45, 1.05), text(size: 8pt)[$u$])
+    draw.content((2.45, 2.2), text(size: 8pt)[$v$])
+    draw.content((2.3, 1.0), text(size: 8pt)[$c u + d v$])
+    draw.circle((5.75, 1.25), radius: 0.06, fill: green, stroke: none)
+    draw.circle((6.65, 1.9), radius: 0.06, fill: green, stroke: none)
+    draw.circle((6.25, 1.35), radius: 0.06, fill: green, stroke: none)
+    draw.content((5.65, 0.95), text(size: 8pt)[$T(u)$])
+    draw.content((6.75, 2.15), text(size: 8pt)[$T(v)$])
+    draw.content((6.35, 1.08), text(size: 8pt)[$c T(u) + d T(v)$])
+    draw.line((3.25, 1.65), (4.8, 1.65), stroke: 0.85pt + black, mark: (end: ">"))
+    draw.content((4.02, 1.95), text(size: 8.5pt)[$T$])
+  })
 ]
 
 #note[

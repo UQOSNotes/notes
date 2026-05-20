@@ -101,6 +101,34 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   $
 ]<thm:det-invertible>
 
+#diagram(caption: [
+  When $det A = 0$, the associated linear map collapses area: two-dimensional input can land on a line, so the map cannot be invertible.
+])[
+  #canvas(length: 1cm, {
+    let axis = 0.55pt + luma(145)
+    let blue-line = blue
+    let green-line = green
+    draw.line((0.45, 0.45), (3.1, 0.45), stroke: axis, mark: (end: ">"))
+    draw.line((0.65, 0.25), (0.65, 2.85), stroke: axis, mark: (end: ">"))
+    draw.line((1.05, 0.8), (2.2, 0.8), stroke: 1pt + blue-line)
+    draw.line((2.2, 0.8), (2.2, 1.95), stroke: 1pt + blue-line)
+    draw.line((2.2, 1.95), (1.05, 1.95), stroke: 1pt + blue-line)
+    draw.line((1.05, 1.95), (1.05, 0.8), stroke: 1pt + blue-line)
+    draw.content((1.62, 2.25), text(size: 8.5pt, fill: blue)[area $> 0$])
+
+    draw.line((3.45, 1.55), (4.35, 1.55), stroke: 0.75pt + black, mark: (end: ">"))
+    draw.content((3.9, 1.9), text(size: 8.5pt)[$A$])
+
+    draw.line((4.75, 0.45), (7.4, 0.45), stroke: axis, mark: (end: ">"))
+    draw.line((4.95, 0.25), (4.95, 2.85), stroke: axis, mark: (end: ">"))
+    draw.line((5.25, 1.0), (7.15, 2.15), stroke: 2pt + green-line)
+    draw.circle((5.55, 1.18), radius: 0.055, fill: green-line, stroke: none)
+    draw.circle((6.0, 1.45), radius: 0.055, fill: green-line, stroke: none)
+    draw.circle((6.45, 1.72), radius: 0.055, fill: green-line, stroke: none)
+    draw.content((6.15, 2.45), text(size: 8.5pt, fill: green)[area $= 0$])
+  })
+]
+
 #example[
   Suppose $op("det")(A B^2) = 4$ and $op("det")(A^2 B) = 2$. Let $x = op("det") A$ and $y = op("det") B$. Then
   $
@@ -123,6 +151,8 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
   $
   Hence $op("det")(A)(op("det")(A) - 1) = 0$, so $op("det")(A) = 0$ or $op("det")(A) = 1$.
 ]
+
+#note[The orthogonal-matrix facts in this subsection are from the 2026 tutorials.]
 
 #definition("Orthogonal matrix")[
   A square matrix $Q$ is *orthogonal* if
@@ -168,6 +198,8 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
     (Q x) dot (Q y) = x^T Q^T Q y = x^T y = x dot y.
   $
 ]
+
+#note[The trace, symmetry, and nilpotent-matrix facts below are from the 2026 tutorials.]
 
 #definition("Trace")[
   The *trace* of a square matrix is the sum of its diagonal entries:
@@ -216,7 +248,7 @@ Determinants are scalar tests for invertibility. Eigenvalues and eigenvectors re
 ]
 
 #proposition("Vandermonde determinant")[
-  This is a starred tutorial result rather than a basic determinant computation.
+  #note[Starred result from the 2026 tutorials.]
 
   For
   $
