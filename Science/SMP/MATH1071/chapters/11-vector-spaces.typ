@@ -147,27 +147,23 @@ The same linear-algebra ideas apply to vectors in $RR^n$, matrices, polynomials,
 ]
 
 #example[
-  The Pauli spin matrices
+  The matrices
   $
-    A = mat(0, 1; 1, 0),
+    A = mat(1, 0; 0, 0),
     quad
-    B = mat(0, -i; i, 0),
+    B = mat(0, 1; 0, 0),
     quad
-    C = mat(1, 0; 0, -1)
+    C = mat(0, 0; 1, 0)
   $
-  are linearly independent in $M_(2 times 2)(CC)$. If
+  are linearly independent in $M_(2 times 2)(RR)$. If
   $
     c_1 A + c_2 B + c_3 C = mat(0, 0; 0, 0),
   $
-  then comparing entries gives
+  then the left-hand side is
   $
-    c_3 = 0,
-    quad
-    c_1 - i c_2 = 0,
-    quad
-    c_1 + i c_2 = 0.
+    mat(c_1, c_2; c_3, 0),
   $
-  Adding the last two equations gives $2c_1 = 0$, hence $c_1 = c_2 = c_3 = 0$.
+  so comparing entries gives $c_1 = c_2 = c_3 = 0$.
 ]
 
 #proposition("Eigenvectors with distinct eigenvalues")[

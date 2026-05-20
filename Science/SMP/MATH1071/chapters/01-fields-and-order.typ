@@ -50,7 +50,7 @@ The standard number systems used in the course are:
   - $ZZ = {dots, -2, -1, 0, 1, 2, dots}$, the integers;
   - $QQ = {p / q: p in ZZ, q in NN}$, the rational numbers;
   - $RR$, the real numbers;
-  - $CC = {a + b i: a, b in RR " and " i^2 = -1}$, the complex numbers.
+  - $CC = {a + b i: a, b in RR " and " i^2 = -1}$, the complex numbers.#footnote[The complex numbers are included here for orientation. This course works almost entirely with real numbers and will not otherwise use $CC$.]
 ]
 
 We also use the following functions repeatedly.
@@ -284,16 +284,6 @@ We write $a < b$ to mean $b > a$, and $a <= b$ to mean $a < b$ or $a = b$.
   If $c > 0$, then $(a - b)c > 0$, so $a c > b c$. If $c < 0$, then $-c > 0$, so $a(-c) > b(-c)$, and multiplying both sides by $-1$ reverses the inequality.
 
   If $a != 0$, exactly one of $a > 0$ or $-a > 0$ holds. In the first case $a^2 > 0$; in the second case $(-a)(-a) > 0$, and this is equal to $a^2$. Since $1 = 1^2$ and $1 != 0$, we get $1 > 0$.
-]
-
-#corollary[
-  The complex numbers $CC$ cannot be made into an ordered field compatible with the usual addition and multiplication.
-]
-
-#proof[
-  In $CC$, the number $i$ is nonzero because if $i = 0$, then $-1 = i^2 = 0$, contradicting $0 != 1$.
-
-  In an ordered field, every nonzero square is positive. Thus $i^2 > 0$. But $i^2 = -1$. Since $1 > 0$, we have $-1 < 0$, a contradiction. Therefore $CC$ is not an ordered field.
 ]
 
 == Absolute Value and Distance

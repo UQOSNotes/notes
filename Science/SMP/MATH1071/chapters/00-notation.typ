@@ -201,7 +201,7 @@ $
   quad
   RR = "the real numbers",
   quad
-  CC = "the complex numbers".
+  CC = "the complex numbers".#footnote[The complex numbers are listed for orientation, but this course works almost entirely with real numbers and will not otherwise use $CC$.]
 $
 
 In these notes, $NN$ starts at $1$. If a problem uses $0$ as a natural number, it should say so.
