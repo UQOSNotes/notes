@@ -2,15 +2,15 @@
 
 = Revision Guide
 
-Use this as a final-pass checklist before an exam. It is brief on purpose. For full definitions, proofs, and examples, go back to the relevant chapter.
+This chapter is a compact checklist for pre-exam revision. It is not a substitute for the definitions, proofs, and examples in the earlier chapters.
 
-== Theorem Checklist
+== Key Results and Theorems
 
 #note[
-  The theorems most likely to appear as statement/proof questions are:
+  The following results are central to the course and are natural candidates for statement, proof, or application questions:
   - monotone convergence theorem,
   - Bolzano-Weierstrass theorem,
-  - Cauchy convergence criterion,
+  - Cauchy convergence criterion for sequences,
   - intermediate value theorem,
   - extreme value theorem,
   - Rolle's theorem and the mean value theorem,
@@ -38,7 +38,17 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   A standard proof route is: find a monotone subsequence, observe that it is still bounded, then apply the monotone convergence theorem to that subsequence.
 ]
 
-== Proof Templates
+#example("Fundamental theorem of calculus")[
+  A complete FTC statement must specify the regularity assumptions. One common version is:
+
+  If $f: [a, b] -> RR$ is continuous and
+  $
+    F(x) = integral_a^x f(t) dif t,
+  $
+  then $F$ is differentiable on $(a, b)$ and $F'(x) = f(x)$.
+]
+
+== Proof Routines
 
 #proposition("Epsilon proof for sequences")[
   To prove $a_n -> L$ from the definition:
@@ -72,7 +82,7 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
 ]
 
 #proposition("Continuity proof pattern")[
-  To prove a function is continuous at $a$, either use the definition directly, or combine known continuous functions using limit laws. To prove discontinuity, find two paths, one-sided limits, or a sequence $x_n -> a$ such that $f(x_n)$ does not tend to $f(a)$.
+  To prove a function is continuous at $a$, either use the definition directly, or combine known continuous functions using limit laws. To prove discontinuity, find one-sided limits or a sequence $x_n -> a$ such that $f(x_n)$ does not tend to $f(a)$.
 ]
 
 #proposition("Subspace proof pattern")[
@@ -85,10 +95,10 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   To disprove it, it is enough to show one failure: no zero vector, not closed under addition, or not closed under scalar multiplication.
 ]
 
-== Choosing a Convergence Test
+== Series Questions
 
 #note[
-  For a series $sum a_n$, first check $a_n -> 0$. If not, the series diverges. If yes, choose a test based on the shape of the term.
+  For a series $sum a_n$, first check $a_n -> 0$. If not, the series diverges. If yes, choose a test based on the form of the term.
 ]
 
 #table(
@@ -101,7 +111,7 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   [powers of $n$], [comparison or limit comparison],
   [$1 / (n (log n)^p)$], [integral test],
   [alternating signs], [alternating series test, then absolute convergence],
-  [monotone positive terms with powers of $2$], [Cauchy condensation],
+  [monotone positive terms with powers of $2$], [Cauchy condensation; starred in the 2026 tutorials],
 )
 
 #example[
@@ -131,7 +141,7 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   Therefore the series converges exactly when $p > 1$.
 ]
 
-== Integration Checklist
+== Integration Questions
 
 #note[
   For a definite or improper integral:
@@ -152,8 +162,6 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   $
 ]
 
-#pagebreak()
-
 #example[
   To decide
   $
@@ -171,23 +179,29 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   which tends to $1 / 2 log 3$.
 ]
 
-== Linear Algebra Checklist
+== Linear Algebra Questions
 
 #note[
-  For systems and matrices:
-  - use dot products for angles, orthogonality, and projection lengths;
-  - use a cross product in $RR^3$ to find a normal vector to a plane;
-  - use columns $T(e_1), dots, T(e_n)$ to build the matrix of a linear transformation;
-  - row-reduce augmented matrices for solution sets;
-  - row-reduce $[A | I]$ for inverses;
-  - use $det A != 0$ for invertibility;
-  - use $Q^T Q = I$ for orthogonal matrices;
-  - use transpose identities for symmetric and skew-symmetric matrices;
-  - remember that $A$ and $A^T$ have the same characteristic polynomial;
-  - use $det(A - lambda I) = 0$ for eigenvalues;
-  - use $(A - lambda I)v = 0$ for eigenvectors;
-  - use closure under linear combinations for subspaces;
-  - test linear maps by checking additivity and homogeneity.
+  The determinant, eigenvalue, and vector-space material below is represented strongly in the 2026 tutorials and recent exams. The current lecture transcript set does not include the full Week 12--13 determinant/eigenvalue/vector-space lectures.
+]
+
+#table(
+  columns: (1.4fr, 2.1fr),
+  inset: 6pt,
+  stroke: 0.4pt + luma(210),
+  [Question type], [Method],
+  [Solve $A x = b$], [row-reduce the augmented matrix $[A | b]$],
+  [Solve $A x = 0$], [row-reduce and express the free variables as parameters],
+  [Find $A^(-1)$], [row-reduce $[A | I]$ to $[I | A^(-1)]$],
+  [Build a matrix for $T$], [use the columns $T(e_1), dots, T(e_n)$],
+  [Compute a large determinant], [use row operations or expand along a sparse row or column],
+  [Find eigenvalues], [solve $det(A - lambda I) = 0$],
+  [Find eigenvectors], [solve $(A - lambda I)v = 0$ for each eigenvalue],
+  [Test a subspace], [check $0 in U$ and closure under linear combinations],
+)
+
+#note[
+  The dot product, cross product, projections, orthogonal matrices, symmetric/skew-symmetric matrices, trace, nilpotent matrices, and Vandermonde determinant are tutorial-derived tools in these notes. Vandermonde is starred in the 2026 tutorials.
 ]
 
 #example[
@@ -202,8 +216,6 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   $
   Thus $lambda = 5, 3, 1$. Then solve $(A - lambda I)v = 0$ separately for each eigenvalue.
 ]
-
-#pagebreak()
 
 #example[
   Let
@@ -235,9 +247,9 @@ For each theorem, practise writing the assumptions before the conclusion. A corr
   - In this course, write $log$ for the natural logarithm.
 ]
 
-== Minimal Exam Answer Standards
+== Complete Answer Standards
 
-For computation questions, show enough working that the method is clear. For proof questions, write in full sentences and make the dependencies explicit.
+For computation questions, write enough working that the method is clear. For proof questions, state the relevant assumptions and make each implication explicit.
 
 #example[
   A complete answer to "show the series converges absolutely" should include:

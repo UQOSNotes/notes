@@ -4,199 +4,6 @@
 
 Linear algebra starts here with systems of equations. Matrix notation is useful because the same row operations solve the system, describe the solution set, and later test invertibility.
 
-== Euclidean Vectors
-
-#definition("Dot product and norm")[
-  For vectors
-  $
-    u = mat(u_1; dots; u_n)
-    quad "and" quad
-    v = mat(v_1; dots; v_n)
-  $
-  in $RR^n$, the *dot product* is
-  $
-    u dot v = sum_(i=1)^n u_i v_i.
-  $
-  The *norm* or *length* of $u$ is
-  $
-    norm(u) = sqrt(u dot u).
-  $
-]
-
-#definition("Orthogonality and angle")[
-  Two vectors $u$ and $v$ are *orthogonal* if $u dot v = 0$. If $u$ and $v$ are non-zero, the angle $theta$ between them is determined by
-  $
-    cos theta = (u dot v) / (norm(u) norm(v)).
-  $
-]
-
-#theorem("Cauchy-Schwarz inequality")[
-  For all $u, v in RR^n$,
-  $
-    abs(u dot v) <= norm(u) norm(v).
-  $
-]<thm:cauchy-schwarz>
-
-#proof[
-  If $v = 0$, then both sides are $0$. Otherwise, for every $t in RR$,
-  $
-    0 <= norm(u - t v)^2
-      = norm(u)^2 - 2t(u dot v) + t^2 norm(v)^2.
-  $
-  Choose $t = (u dot v) / norm(v)^2$. Substitution gives
-  $
-    0 <= norm(u)^2 - (u dot v)^2 / norm(v)^2.
-  $
-  Multiplying by $norm(v)^2$ gives $(u dot v)^2 <= norm(u)^2 norm(v)^2$, and taking square roots gives the result.
-]
-
-#theorem("Vector triangle inequality")[
-  For all $u, v in RR^n$,
-  $
-    norm(u + v) <= norm(u) + norm(v).
-  $
-]<thm:vector-triangle>
-
-#proof[
-  Squaring the left-hand side gives
-  $
-    norm(u + v)^2
-      = norm(u)^2 + 2 u dot v + norm(v)^2.
-  $
-  By #link(<thm:cauchy-schwarz>)[Cauchy-Schwarz],
-  $
-    2 u dot v <= 2 abs(u dot v) <= 2 norm(u) norm(v).
-  $
-  Hence
-  $
-    norm(u + v)^2 <= (norm(u) + norm(v))^2.
-  $
-  Both sides are non-negative, so taking square roots proves the result.
-]
-
-#proposition("Parallelogram law")[
-  For all $u, v in RR^n$,
-  $
-    norm(u + v)^2 + norm(u - v)^2 = 2 norm(u)^2 + 2 norm(v)^2.
-  $
-]
-
-#proof[
-  Expand both squared norms using the dot product:
-  $
-    norm(u + v)^2 = norm(u)^2 + 2u dot v + norm(v)^2,
-  $
-  $
-    norm(u - v)^2 = norm(u)^2 - 2u dot v + norm(v)^2.
-  $
-  Adding cancels the dot-product terms.
-]
-
-#corollary("Equal lengths from orthogonal diagonals")[
-  If $u + v$ and $u - v$ are orthogonal, then $norm(u) = norm(v)$.
-]
-
-#proof[
-  Orthogonality gives
-  $
-    0 = (u + v) dot (u - v) = norm(u)^2 - norm(v)^2.
-  $
-  Hence $norm(u)^2 = norm(v)^2$, and norms are non-negative.
-]
-
-#definition("Projection")[
-  If $a != 0$, the projection of $b$ onto $a$ is
-  $
-    op("proj")_a b = (b dot a) / (a dot a) a.
-  $
-  The component of $b$ orthogonal to $a$ is
-  $
-    op("orth")_a b = b - op("proj")_a b.
-  $
-]
-
-#proposition("Projection residual is orthogonal")[
-  If $a != 0$, then $op("orth")_a b$ is orthogonal to $a$.
-]
-
-#proof[
-  Compute
-  $
-    a dot (b - op("proj")_a b)
-      = a dot b - a dot ((b dot a) / (a dot a) a)
-      = a dot b - (b dot a) = 0.
-  $
-]
-
-#definition("Cross product in three dimensions")[
-  For vectors
-  $
-    u = mat(u_1; u_2; u_3)
-    quad "and" quad
-    v = mat(v_1; v_2; v_3),
-  $
-  the *cross product* is
-  $
-    u times v
-      = mat(
-        u_2 v_3 - u_3 v_2;
-        u_3 v_1 - u_1 v_3;
-        u_1 v_2 - u_2 v_1
-      ).
-  $
-  It is orthogonal to both $u$ and $v$.
-]
-
-#example[
-  Let
-  $
-    A = mat(1; 2; 3),
-    quad
-    B = mat(7; 2; 1),
-    quad
-    C = mat(1; 3; 3).
-  $
-  Then
-  $
-    B - A = mat(6; 0; -2),
-    quad
-    C - A = mat(0; 1; 0).
-  $
-  Since $(B - A) dot (C - A) = 0$, the angle at $A$ is $pi / 2$.
-]
-
-#example[
-  A vector orthogonal to the plane through $A$, $B$, and $C$ is
-  $
-    (B - A) times (C - A)
-      = mat(6; 0; -2) times mat(0; 1; 0)
-      = mat(2; 0; 6).
-  $
-  The length of the projection of $B - A$ onto $C - A$ is
-  $
-    abs((B - A) dot (C - A)) / norm(C - A) = 0.
-  $
-]
-
-#example[
-  Since
-  $
-    C - B = mat(-6; 1; 2),
-  $
-  a unit vector parallel to $C - B$ is
-  $
-    1 / sqrt(41) mat(-6; 1; 2).
-  $
-  A vector orthogonal to both $C - B$ and the $z$-axis is
-  $
-    mat(-6; 1; 2) times mat(0; 0; 1) = mat(1; 6; 0),
-  $
-  so a unit vector with this property is
-  $
-    1 / sqrt(37) mat(1; 6; 0).
-  $
-]
-
 == Linear Systems
 
 #definition("Linear equation")[
@@ -213,6 +20,36 @@ Linear algebra starts here with systems of equations. Matrix notation is useful 
 
 #note[
   A linear system has exactly one of the following behaviours: no solution, exactly one solution, or infinitely many solutions. The row-reduction process below is how we tell which case we are in.
+]
+
+#diagram(caption: [
+  In $RR^2$, a system of two linear equations asks where two lines meet.
+])[
+  #canvas(length: 1cm, {
+    let axis = 0.55pt + luma(120)
+    let a = blue
+    let b = green
+    let redline = red
+    let draw_axes(origin) = {
+      draw.line((origin.at(0), origin.at(1) - 1.25), (origin.at(0), origin.at(1) + 1.25), stroke: axis)
+      draw.line((origin.at(0) - 1.25, origin.at(1)), (origin.at(0) + 1.25, origin.at(1)), stroke: axis)
+    }
+    draw_axes((1.55, 1.65))
+    draw.line((0.55, 1.05), (2.55, 2.35), stroke: 1pt + a)
+    draw.line((0.55, 2.25), (2.55, 1.05), stroke: 1pt + b)
+    draw.circle((1.55, 1.70), radius: 0.065, fill: redline, stroke: none)
+    draw.content((1.55, 0.05), text(size: 8.5pt)[one solution])
+
+    draw_axes((4.15, 1.65))
+    draw.line((3.15, 1.1), (5.15, 2.2), stroke: 1pt + a)
+    draw.line((3.15, 0.75), (5.15, 1.85), stroke: 1pt + b)
+    draw.content((4.15, 0.05), text(size: 8.5pt)[no solution])
+
+    draw_axes((6.75, 1.65))
+    draw.line((5.75, 1.05), (7.75, 2.25), stroke: 1.5pt + a)
+    draw.line((5.75, 1.05), (7.75, 2.25), stroke: 0.7pt + b)
+    draw.content((6.75, 0.05), text(size: 8.5pt)[infinitely many])
+  })
 ]
 
 #example[
@@ -587,6 +424,203 @@ Matrices and linear transformations are two ways of describing the same finite-d
     (A^(-1))^T A^T = I,
     quad
     A^T (A^(-1))^T = I.
+  $
+]
+
+#pagebreak()
+
+== Euclidean Vectors
+
+#note[Found in the 2026 tutorials. This section collects the vector-geometry tools used in tutorial questions.]
+
+#definition("Dot product and norm")[
+  For vectors
+  $
+    u = mat(u_1; dots; u_n)
+    quad "and" quad
+    v = mat(v_1; dots; v_n)
+  $
+  in $RR^n$, the *dot product* is
+  $
+    u dot v = sum_(i=1)^n u_i v_i.
+  $
+  The *norm* or *length* of $u$ is
+  $
+    norm(u) = sqrt(u dot u).
+  $
+]
+
+#definition("Orthogonality and angle")[
+  Two vectors $u$ and $v$ are *orthogonal* if $u dot v = 0$. If $u$ and $v$ are non-zero, the angle $theta$ between them is determined by
+  $
+    cos theta = (u dot v) / (norm(u) norm(v)).
+  $
+]
+
+#theorem("Cauchy-Schwarz inequality")[
+  For all $u, v in RR^n$,
+  $
+    abs(u dot v) <= norm(u) norm(v).
+  $
+]<thm:cauchy-schwarz>
+
+#proof[
+  If $v = 0$, then both sides are $0$. Otherwise, for every $t in RR$,
+  $
+    0 <= norm(u - t v)^2
+      = norm(u)^2 - 2t(u dot v) + t^2 norm(v)^2.
+  $
+  Choose $t = (u dot v) / norm(v)^2$. Substitution gives
+  $
+    0 <= norm(u)^2 - (u dot v)^2 / norm(v)^2.
+  $
+  Multiplying by $norm(v)^2$ gives $(u dot v)^2 <= norm(u)^2 norm(v)^2$, and taking square roots gives the result.
+]
+
+#theorem("Vector triangle inequality")[
+  For all $u, v in RR^n$,
+  $
+    norm(u + v) <= norm(u) + norm(v).
+  $
+]<thm:vector-triangle>
+
+#proof[
+  Squaring the left-hand side gives
+  $
+    norm(u + v)^2
+      = norm(u)^2 + 2 u dot v + norm(v)^2.
+  $
+  By #link(<thm:cauchy-schwarz>)[Cauchy-Schwarz],
+  $
+    2 u dot v <= 2 abs(u dot v) <= 2 norm(u) norm(v).
+  $
+  Hence
+  $
+    norm(u + v)^2 <= (norm(u) + norm(v))^2.
+  $
+  Both sides are non-negative, so taking square roots proves the result.
+]
+
+#proposition("Parallelogram law")[
+  For all $u, v in RR^n$,
+  $
+    norm(u + v)^2 + norm(u - v)^2 = 2 norm(u)^2 + 2 norm(v)^2.
+  $
+]
+
+#proof[
+  Expand both squared norms using the dot product:
+  $
+    norm(u + v)^2 = norm(u)^2 + 2u dot v + norm(v)^2,
+  $
+  $
+    norm(u - v)^2 = norm(u)^2 - 2u dot v + norm(v)^2.
+  $
+  Adding cancels the dot-product terms.
+]
+
+#corollary("Equal lengths from orthogonal diagonals")[
+  If $u + v$ and $u - v$ are orthogonal, then $norm(u) = norm(v)$.
+]
+
+#proof[
+  Orthogonality gives
+  $
+    0 = (u + v) dot (u - v) = norm(u)^2 - norm(v)^2.
+  $
+  Hence $norm(u)^2 = norm(v)^2$, and norms are non-negative.
+]
+
+#definition("Projection")[
+  If $a != 0$, the projection of $b$ onto $a$ is
+  $
+    op("proj")_a b = (b dot a) / (a dot a) a.
+  $
+  The component of $b$ orthogonal to $a$ is
+  $
+    op("orth")_a b = b - op("proj")_a b.
+  $
+]
+
+#proposition("Projection residual is orthogonal")[
+  If $a != 0$, then $op("orth")_a b$ is orthogonal to $a$.
+]
+
+#proof[
+  Compute
+  $
+    a dot (b - op("proj")_a b)
+      = a dot b - a dot ((b dot a) / (a dot a) a)
+      = a dot b - (b dot a) = 0.
+  $
+]
+
+#definition("Cross product in three dimensions")[
+  For vectors
+  $
+    u = mat(u_1; u_2; u_3)
+    quad "and" quad
+    v = mat(v_1; v_2; v_3),
+  $
+  the *cross product* is
+  $
+    u times v
+      = mat(
+        u_2 v_3 - u_3 v_2;
+        u_3 v_1 - u_1 v_3;
+        u_1 v_2 - u_2 v_1
+      ).
+  $
+  It is orthogonal to both $u$ and $v$.
+]
+
+#example[
+  Let
+  $
+    A = mat(1; 2; 3),
+    quad
+    B = mat(7; 2; 1),
+    quad
+    C = mat(1; 3; 3).
+  $
+  Then
+  $
+    B - A = mat(6; 0; -2),
+    quad
+    C - A = mat(0; 1; 0).
+  $
+  Since $(B - A) dot (C - A) = 0$, the angle at $A$ is $pi / 2$.
+]
+
+#example[
+  A vector orthogonal to the plane through $A$, $B$, and $C$ is
+  $
+    (B - A) times (C - A)
+      = mat(6; 0; -2) times mat(0; 1; 0)
+      = mat(2; 0; 6).
+  $
+  The length of the projection of $B - A$ onto $C - A$ is
+  $
+    abs((B - A) dot (C - A)) / norm(C - A) = 0.
+  $
+]
+
+#example[
+  Since
+  $
+    C - B = mat(-6; 1; 2),
+  $
+  a unit vector parallel to $C - B$ is
+  $
+    1 / sqrt(41) mat(-6; 1; 2).
+  $
+  A vector orthogonal to both $C - B$ and the $z$-axis is
+  $
+    mat(-6; 1; 2) times mat(0; 0; 1) = mat(1; 6; 0),
+  $
+  so a unit vector with this property is
+  $
+    1 / sqrt(37) mat(1; 6; 0).
   $
 ]
 
