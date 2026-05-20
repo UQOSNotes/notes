@@ -214,6 +214,14 @@ Linear algebra starts here with systems of equations. Matrix notation is useful 
   The zero solution is called the *trivial solution*. A homogeneous system has non-trivial solutions exactly when at least one variable is free after row reduction.
 ]
 
+#definition("Kernel and rank")[
+  For a matrix $A$, the *kernel* is the solution set of the homogeneous system:
+  $
+    op("ker") A = {x : A x = 0}.
+  $
+  The *rank* of $A$ is the number of non-zero rows in a row echelon form of $A$.
+]
+
 #example[
   For
   $
@@ -374,6 +382,42 @@ Matrices and linear transformations are two ways of describing the same finite-d
   $
 ]
 
+#proposition("One-sided inverses")[
+  Let $A, B, C$ be $n times n$ matrices. If
+  $
+    A B = C A = I_n,
+  $
+  then $B = C$. Hence $B = C = A^(-1)$.
+]
+
+#proof[
+  We have
+  $
+    B = I_n B = (C A)B = C(A B) = C I_n = C.
+  $
+  Thus the same matrix is both a left and right inverse for $A$.
+]
+
+#proposition("Inverse of a product")[
+  If $A$ and $B$ are invertible $n times n$ matrices, then $A B$ is invertible and
+  $
+    (A B)^(-1) = B^(-1) A^(-1).
+  $
+  Also, $(A^(-1))^(-1) = A$.
+]
+
+#proof[
+  Since
+  $
+    (A B)(B^(-1) A^(-1)) = A(B B^(-1))A^(-1) = A A^(-1) = I_n
+  $
+  and similarly
+  $
+    (B^(-1) A^(-1))(A B) = I_n,
+  $
+  the inverse of $A B$ is $B^(-1) A^(-1)$. The statement $(A^(-1))^(-1) = A$ follows directly from the definition of inverse.
+]
+
 #proposition("Finding inverses by row reduction")[
   A square matrix $A$ is invertible exactly when $[A | I]$ row-reduces to $[I | B]$. In that case $B = A^(-1)$.
 ]<prop:inverse-row-reduction>
@@ -409,6 +453,28 @@ Matrices and linear transformations are two ways of describing the same finite-d
   $
     A^(-1) = mat(0, 1, -3; 1, 0, -2; 0, 0, 1).
   $
+]
+
+#theorem("Invertibility criteria")[
+  For an $n times n$ matrix $A$, the following statements are equivalent.
+  - $A$ is invertible.
+  - $A$ has a right inverse: there exists a matrix $B$ such that $A B = I_n$.
+  - $op("rank")(A) = n$.
+  - $op("ker") A = {0}$.
+]
+
+#proof[
+  If $A$ is invertible and $x in op("ker") A$, then
+  $
+    x = A^(-1) A x = A^(-1) 0 = 0,
+  $
+  so $op("ker") A = {0}$.
+
+  If $op("ker") A = {0}$, then the homogeneous system has no free variable. Thus every column has a pivot, so $op("rank")(A) = n$.
+
+  If $op("rank")(A) = n$, then $A x = b$ has a unique solution for every $b in RR^n$. In particular, for each standard basis vector $e_i$, choose the unique vector $x^(i)$ with $A x^(i) = e_i$. Putting these vectors as the columns of a matrix $B$ gives $A B = I_n$, so $A$ has a right inverse.
+
+  Finally, if $A B = I_n$, then $op("ker") B = {0}$ because $B x = 0$ implies $x = A B x = 0$. By the previous implications, $B$ has a right inverse $C$. Since $A B = I_n$ and $B C = I_n$, the one-sided inverse result gives $A = C$, so $A$ is the inverse of $B$ and hence is invertible.
 ]
 
 #proposition("Transpose and inverse")[
