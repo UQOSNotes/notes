@@ -201,7 +201,9 @@ $
   quad
   RR = "the real numbers",
   quad
-  CC = "the complex numbers".#footnote[The complex numbers are listed for orientation, but this course works almost entirely with real numbers and will not otherwise use $CC$.]
+  CC = "the complex numbers". 
+
+
 $
 
 In these notes, $NN$ starts at $1$. If a problem uses $0$ as a natural number, it should say so.
@@ -209,3 +211,5 @@ In these notes, $NN$ starts at $1$. If a problem uses $0$ as a natural number, i
 #note[
   In limits and proofs, the letters $epsilon$ and $delta$ usually represent small positive real numbers. The letter $N$ usually represents a large natural number. These are conventions, not new kinds of numbers.
 ]
+
+  #footnote[The complex numbers are listed for orientation, but this course works almost entirely with real numbers and will not otherwise use $CC$.]
